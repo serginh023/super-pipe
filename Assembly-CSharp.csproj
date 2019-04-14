@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Pipe.cs" />
+     <Compile Include="Assets\Scripts\Puzzle.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/git/games/super-pipe/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
