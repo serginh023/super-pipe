@@ -18,7 +18,7 @@ public class Pipe : MonoBehaviour
         //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 10 * smooth * Time.deltaTime);
         
         if(!isRotating)
-            StartCoroutine(Rotate(new Vector3(0, 0, 1), 90, 0.3f));
+            StartCoroutine(Rotate(new Vector3(0, 0, 1), 90, 0.35f));
     }
 
     IEnumerator Rotate( Vector3 axis, float angle, float duration)

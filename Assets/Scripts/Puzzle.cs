@@ -1,21 +1,24 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Puzzle : MonoBehaviour
+[Serializable]
+
+public class Puzzle
 {
+    private int altura;
+    private int largura;
+    private int id;
+    private int tipo;
+    private int[,] pipes;
 
-    public int altura = 5;
-    public int largura = 5;
-    
-    private int[,] puzzle;
-
-    
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        puzzle = new int[altura, largura];
+    public Puzzle(int id, int altura, int largura, int tipo, int[,] pipes){
+        this.altura     = altura;
+        this.largura    = largura;
+        this.id         = id;
+        this.tipo       = tipo;
+        this.pipes      = pipes;
     }
 
 }
