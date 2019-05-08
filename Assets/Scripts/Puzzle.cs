@@ -7,13 +7,13 @@ using UnityEngine;
 
 public class Puzzle
 {
-    private int altura;
-    private int largura;
-    private int id;
-    private int tipo;
-    private int[,] pipes;
+    public int id;
+    public int tipo;
+    public int altura;
+    public int largura;
+    public int[,] pipes;
 
-    public Puzzle(int id, int altura, int largura, int tipo, int[,] pipes){
+    public Puzzle(int id, int tipo, int altura, int largura, int[,] pipes){
         this.altura     = altura;
         this.largura    = largura;
         this.id         = id;
