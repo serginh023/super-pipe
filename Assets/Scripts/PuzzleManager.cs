@@ -46,17 +46,17 @@ public class PuzzleManager : MonoBehaviour
     }
 
     void instanciaPosicoes(){
-        // for(int i = 0; i < qtdX; i++)
-        //     for(int j = 0; j < qtdY; j++){
-        //         Instantiate(pipeCurvoPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), new Quaternion());
-        //     }
         Puzzle puzzleAtual = null;
         if(dicionarioPuzzles.ContainsKey(faseAtual))
             puzzleAtual = dicionarioPuzzles[faseAtual];
-        for(int i = 0; i < puzzleAtual.pipes.Length; i++){
-            switch(){
-                
+        for(int i = 0; i < qtdX; i++){
+            for(int j = 0; j < qtdY; j++){
+                switch(puzzleAtual.pipes[i, j]){
+                    case 2: Instantiate(pipeRetoPrefab,);
+                }
             }
+            
+            
         }
     }
 }
