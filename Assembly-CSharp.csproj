@@ -59,7 +59,6 @@
      <Compile Include="Assets\Scripts\Puzzle.cs" />
      <Compile Include="Assets\Scripts\PuzzleManager.cs" />
      <Compile Include="Assets\Scripts\Utils.cs" />
-     <None Include="Assets\Resources\PuzzlesData.txt" />
      <None Include="Assets\Resources\puzzle.txt" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/git/games/super-pipe/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

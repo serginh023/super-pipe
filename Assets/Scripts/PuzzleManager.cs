@@ -26,6 +26,15 @@ public class PuzzleManager : MonoBehaviour
     void Start()
     {
         dicionarioPuzzles = new Dictionary<int, Puzzle>();
+
+        List<Puzzle> listaPuzzles = Utils.consomeDicionario();
+
+        // posicoes = criaVetorPosicoes(xInicial, yInicial, qtdX, qtdY);
+
+        // foreach(Puzzle puzzle in listaPuzzles)
+        //     dicionarioPuzzles.Add(puzzle.id, puzzle);
+        
+        // instanciaPosicoes();
         
     }
 
@@ -49,14 +58,18 @@ public class PuzzleManager : MonoBehaviour
         Puzzle puzzleAtual = null;
         if(dicionarioPuzzles.ContainsKey(faseAtual))
             puzzleAtual = dicionarioPuzzles[faseAtual];
-        for(int i = 0; i < qtdX; i++){
-            for(int j = 0; j < qtdY; j++){
+        for(int i = 0; i < qtdX; i++)
+            for(int j = 0; j < qtdY; j++)
                 switch(puzzleAtual.pipes[i, j]){
-                    case 2: Instantiate(pipeRetoPrefab,);
+                    case 2: Instantiate(pipeRetoPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), new Quaternion(0, 0, 0, 0));
+                    break;
+                    case 3: Instantiate(pipeCurvoPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), new Quaternion(0, 0, 0, 0));
+                    break;
+                    case 4: Instantiate(pipeCruzPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), new Quaternion(0, 0, 0, 0));
+                    break;
+
                 }
-            }
             
-            
-        }
+        
     }
 }

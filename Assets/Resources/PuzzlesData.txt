@@ -1,6 +1,0 @@
-{
-    "id": 1,
-    "tipo": 1,
-    "altura": 6,
-    "largura": 5
-}

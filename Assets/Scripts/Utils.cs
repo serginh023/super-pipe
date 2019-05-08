@@ -10,36 +10,46 @@ public static class Utils
 
     public static List<Puzzle> consomeDicionario(){
         string puzzleFonte;
-        var fileStream = new FileStream(Application.dataPath + "Resources/puzzle.txt", FileMode.Open, FileAccess.Read);
+        var fileStream = new FileStream(Application.dataPath + "/Resources/puzzle.txt", FileMode.Open, FileAccess.Read);
         using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
         {
             puzzleFonte = streamReader.ReadToEnd();
         }
 
         string[] texto = puzzleFonte.Split('\n');
+
         List<Puzzle> listaPuzzles = new List<Puzzle>();
         foreach(string linha in texto){
             string[] s = linha.Split('\t');
+            Debug.Log(s.Length);
 
-            int id      = Int32.Parse(s[0]);
-            int tipo    = Int32.Parse(s[1]);
-            int altura  = Int32.Parse(s[2]);
-            int largura = Int32.Parse(s[3]);
+            int id;
+            int.TryParse(s[0], out id);
+            int tipo;
+            int.TryParse(s[1], out tipo);
+            int altura;
+            int.TryParse(s[2], out altura);
+            int largura;
+            int.TryParse(s[3], out largura);
             //inicia a matriz de pipes com -1 em todas as posições
             int[, ] pipes = zeraMatriz(altura, largura);
 
             string[] pipeString = s[4].Split(' ');
 
-            for(int i = 0; i < pipeString.Length-3;i=+3)
-                pipes[i, i+1] = i+2;
+            for(int i = 0; i < pipeString.Length-3;i+=3){
+                //  pipes[i, i+1] = i+2;
+                 int pos1;
+                 int.TryParse(pipeString[i], out pos1);
+                 int pos2;
+                 int.TryParse(pipeString[i+1], out pos2);
+                 int pipe;
+                 int.TryParse(pipeString[i+2], out pipe);
+                 pipes[pos1, pos2] = pipe;
+            }
 
-            Puzzle puzzle = new Puzzle(id, altura, largura, tipo, pipes);
-
-            /*
-            PRECISA-SE COLOCAR UMA ESTRUTURA DE PUZZLES ARMAZENADA PARA PODER CARREGAR TODOS OS PUZZLES A HORA QUE O GAME COMEÇAR,
-            TAMBÉM PARA CARREGAR CADA PUZZLE QUANDO CADA FASE DO GAME INICIAR
-            */
-            listaPuzzles.Add(puzzle);
+            // Puzzle puzzle = new Puzzle(id, altura, largura, tipo, pipes);
+            
+            // listaPuzzles.Add(puzzle);
         }
 
         return listaPuzzles;
@@ -55,16 +65,4 @@ public static class Utils
         return pipes;        
 
     }
-/*
-    public static void savePuzzle (Puzzle data, string path)
-    {
-        //string jsonString = JsonUtility.ToJson (data, true);
-        string jsonString = JsonHelper.ToJson(data, true);
-
-        using (StreamWriter streamWriter = File.CreateText (path))
-        {
-            streamWriter.Write (jsonString);
-        }
-    }
-    */
 }
