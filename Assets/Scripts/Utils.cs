@@ -47,9 +47,9 @@ public static class Utils
                  pipes[pos1, pos2] = pipe;
             }
 
-            // Puzzle puzzle = new Puzzle(id, altura, largura, tipo, pipes);
+            Puzzle puzzle = new Puzzle(id, altura, largura, tipo, pipes);
             
-            // listaPuzzles.Add(puzzle);
+            listaPuzzles.Add(puzzle);
         }
 
         return listaPuzzles;

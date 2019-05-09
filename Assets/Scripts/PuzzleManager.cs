@@ -9,15 +9,15 @@ public class PuzzleManager : MonoBehaviour
     float [,,] posicoes;
     float xInicial = -2.4f;
     float yInicial = -2.7f;
-    int qtdX = 5;
-    int qtdY = 6;
+    int qtdX = 6;
+    int qtdY = 5;
 
     public Transform pipeRetoPrefab;
     public Transform pipeCurvoPrefab;
     public Transform pipeCruzPrefab;
 
     string dataPath;
-    private int faseAtual = 1;
+    public int faseAtual = 2;
 
     private Dictionary<int, Puzzle> dicionarioPuzzles;
 
@@ -29,12 +29,12 @@ public class PuzzleManager : MonoBehaviour
 
         List<Puzzle> listaPuzzles = Utils.consomeDicionario();
 
-        // posicoes = criaVetorPosicoes(xInicial, yInicial, qtdX, qtdY);
+        posicoes = criaVetorPosicoes(xInicial, yInicial, qtdX, qtdY);
 
-        // foreach(Puzzle puzzle in listaPuzzles)
-        //     dicionarioPuzzles.Add(puzzle.id, puzzle);
+        foreach(Puzzle puzzle in listaPuzzles)
+            dicionarioPuzzles.Add(puzzle.id, puzzle);
         
-        // instanciaPosicoes();
+        instanciaPosicoes();
         
     }
 
@@ -57,7 +57,8 @@ public class PuzzleManager : MonoBehaviour
     void instanciaPosicoes(){
         Puzzle puzzleAtual = null;
         if(dicionarioPuzzles.ContainsKey(faseAtual))
-            puzzleAtual = dicionarioPuzzles[faseAtual];
+            //puzzleAtual = dicionarioPuzzles[faseAtual];
+            dicionarioPuzzles.TryGetValue(faseAtual, out puzzleAtual);
         for(int i = 0; i < qtdX; i++)
             for(int j = 0; j < qtdY; j++)
                 switch(puzzleAtual.pipes[i, j]){
