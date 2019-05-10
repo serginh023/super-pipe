@@ -21,7 +21,6 @@ public static class Utils
         List<Puzzle> listaPuzzles = new List<Puzzle>();
         foreach(string linha in texto){
             string[] s = linha.Split('\t');
-            Debug.Log(s.Length);
 
             int id;
             int.TryParse(s[0], out id);

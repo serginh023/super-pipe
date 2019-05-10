@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4056546584104979169}
   - component: {fileID: 8134690406349742851}
   - component: {fileID: 6454271331258455429}
+  - component: {fileID: 6148291840601177634}
   m_Layer: 0
   m_Name: cano-reto-1.2
   m_TagString: Untagged
@@ -93,3 +94,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smooth: 1
+--- !u!61 &6148291840601177634
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385559513330906417}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.22, y: 0.52}
+    newSize: {x: 1.22, y: 0.52}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.22, y: 0.52}
+  m_EdgeRadius: 0

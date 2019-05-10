@@ -213,3 +213,4 @@ MonoBehaviour:
     type: 3}
   pipeCruzPrefab: {fileID: 5302170756683428053, guid: 442489df6338d82489c4525fd9198cd2,
     type: 3}
+  faseAtual: 2

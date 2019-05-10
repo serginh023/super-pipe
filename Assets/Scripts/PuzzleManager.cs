@@ -8,16 +8,15 @@ public class PuzzleManager : MonoBehaviour
 
     float [,,] posicoes;
     float xInicial = -2.4f;
-    float yInicial = -2.7f;
+    float yInicial =  2.7f;
     int qtdX = 6;
     int qtdY = 5;
-
     public Transform pipeRetoPrefab;
     public Transform pipeCurvoPrefab;
     public Transform pipeCruzPrefab;
 
     string dataPath;
-    public int faseAtual = 2;
+    public int faseAtual = 0;
 
     private Dictionary<int, Puzzle> dicionarioPuzzles;
 
@@ -34,43 +33,73 @@ public class PuzzleManager : MonoBehaviour
         foreach(Puzzle puzzle in listaPuzzles)
             dicionarioPuzzles.Add(puzzle.id, puzzle);
         
-        instanciaPosicoes();
+        instanciaPosicoes(faseAtual);
         
     }
 
     float[,,] criaVetorPosicoes(float x, float y, int qtdX, int qtdY){
         float xbase = x;
         float ybase = y;
-        float[, , ] posicoes = new float[qtdX, qtdY, 3];
+        float[, , ] posicoes = new float[qtdX, qtdY, 2];
 
         float passo = 1.2f;
 
         for(int i = 0; i < qtdX; i++)
             for(int j = 0; j < qtdY; j++){
                 posicoes[i, j, 0] = xbase + passo*i;
-                posicoes[i, j, 1] = ybase + passo*j;
-                posicoes[i, j, 2] = -1;
+                posicoes[i, j, 1] = ybase - passo*j;
             }
         return posicoes;
     }
 
-    void instanciaPosicoes(){
+    void instanciaPosicoes(int idFase){
         Puzzle puzzleAtual = null;
-        if(dicionarioPuzzles.ContainsKey(faseAtual))
-            //puzzleAtual = dicionarioPuzzles[faseAtual];
-            dicionarioPuzzles.TryGetValue(faseAtual, out puzzleAtual);
-        for(int i = 0; i < qtdX; i++)
-            for(int j = 0; j < qtdY; j++)
-                switch(puzzleAtual.pipes[i, j]){
-                    case 2: Instantiate(pipeRetoPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), new Quaternion(0, 0, 0, 0));
-                    break;
-                    case 3: Instantiate(pipeCurvoPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), new Quaternion(0, 0, 0, 0));
-                    break;
-                    case 4: Instantiate(pipeCruzPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), new Quaternion(0, 0, 0, 0));
-                    break;
+        if (dicionarioPuzzles.ContainsKey(idFase))
+        {
+            if (dicionarioPuzzles.TryGetValue(idFase, out puzzleAtual)) ;
+            else Debug.Log("deu ruim 1");
 
+            for (int i = 0; i < qtdX; i++)
+                for (int j = 0; j < qtdY; j++)
+                {
+                    switch (puzzleAtual.pipes[i, j])
+                    {
+                        case 2:
+                            Instantiate(pipeRetoPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), sorteioRotacao());
+                            break;
+                        case 3:
+                            Instantiate(pipeCurvoPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), sorteioRotacao());
+                            break;
+                        case 4:
+                            Instantiate(pipeCruzPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), sorteioRotacao());
+                            break;
+                            //default:
+                            //    Instantiate(pipeCruzPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), sorteioRotacao());
+                            //    break;
+                    }
+                    Debug.Log("Pipe: " + puzzleAtual.pipes[i, j] + " " + sorteioRotacao());
                 }
-            
+        }
+        else Debug.Log("Deu ruim 2");
         
+    }
+
+    Quaternion sorteioRotacao()
+    {
+        int i = Random.Range(1, 4);
+
+        switch (i)
+        {
+            case 1: return Quaternion.Euler(new Vector3(0, 0, 0));
+                
+            case 2: return Quaternion.Euler(new Vector3(0, 0, 90));
+
+            case 3: return Quaternion.Euler(new Vector3(0, 0, 180));
+
+            case 4: return Quaternion.Euler(new Vector3(0, 0, 270));
+
+            default: return Quaternion.Euler(new Vector3(0, 0, 90));
+
+        }
     }
 }
