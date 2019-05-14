@@ -15,11 +15,14 @@ public class PuzzleManager : MonoBehaviour
     public Transform pipeCurvoPrefab;
     public Transform pipeCruzPrefab;
     public Transform fundo;
+    public Transform alfaRegistro;
 
     string dataPath;
     public int faseAtual = 0;
 
     private Dictionary<int, Puzzle> dicionarioPuzzles;
+
+    bool isRotating = false;
 
 
     // Start is called before the first frame update
@@ -35,6 +38,7 @@ public class PuzzleManager : MonoBehaviour
             dicionarioPuzzles.Add(puzzle.id, puzzle);
         
         instanciaPosicoes(faseAtual);
+
         
     }
 
@@ -98,7 +102,50 @@ public class PuzzleManager : MonoBehaviour
             case 4: return Quaternion.Euler(new Vector3(0, 0, 270));
 
             default: return Quaternion.Euler(new Vector3(0, 0, 90));
-
         }
+    }
+
+    IEnumerator giraRegistro()
+    {
+        yield return new WaitForSeconds(5f);
+
+        StartCoroutine(Rotate(new Vector3(0, 0, 1), 45, 0.35f));
+
+        yield return new WaitForSeconds(0.35f);
+
+        StartCoroutine(Rotate(new Vector3(0, 0, 1), 45, 0.35f));
+
+        yield return new WaitForSeconds(0.35f);
+
+        StartCoroutine(Rotate(new Vector3(0, 0, 1), 45, 0.35f));
+
+        yield return new WaitForSeconds(0.35f);
+    }
+
+    IEnumerator Rotate(Vector3 axis, float angle, float duration)
+    {
+        isRotating = true;
+        Quaternion from = transform.rotation;
+        Quaternion to = transform.rotation;
+        to *= Quaternion.Euler(axis * angle);
+
+        //Vector3 originalScale       = transform.localScale;
+        //Vector3 destinationScale    = new Vector3(originalScale.x * 1.25f, originalScale.y * 1.25f, originalScale.z * 1.25f);
+
+        float elapsed = 0.0f;
+        while (elapsed <= duration)
+        {
+            transform.rotation = Quaternion.Slerp(from, to, elapsed / duration);
+            /*
+            if(elapsed <= duration / 2)
+                transform.localScale = Vector3.Lerp(originalScale, destinationScale, elapsed / duration);
+            else
+                transform.localScale = Vector3.Lerp(destinationScale, originalScale, elapsed / duration);
+            */
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        transform.rotation = to;
+        isRotating = false;
     }
 }
