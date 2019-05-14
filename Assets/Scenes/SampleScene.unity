@@ -164,7 +164,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 53.293007
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: 0
   m_CullingMask:
@@ -213,4 +213,5 @@ MonoBehaviour:
     type: 3}
   pipeCruzPrefab: {fileID: 5302170756683428053, guid: 442489df6338d82489c4525fd9198cd2,
     type: 3}
-  faseAtual: 2
+  fundo: {fileID: 5793496907723663885, guid: 68b8dad5391db7f4facc20266cdb0b26, type: 3}
+  faseAtual: 7

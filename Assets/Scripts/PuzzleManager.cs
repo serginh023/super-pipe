@@ -14,6 +14,7 @@ public class PuzzleManager : MonoBehaviour
     public Transform pipeRetoPrefab;
     public Transform pipeCurvoPrefab;
     public Transform pipeCruzPrefab;
+    public Transform fundo;
 
     string dataPath;
     public int faseAtual = 0;
@@ -62,6 +63,8 @@ public class PuzzleManager : MonoBehaviour
             for (int i = 0; i < qtdX; i++)
                 for (int j = 0; j < qtdY; j++)
                 {
+                    Instantiate(fundo, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 1), Quaternion.Euler(new Vector3(0, 0, 0)));
+
                     switch (puzzleAtual.pipes[i, j])
                     {
                         case 2:
