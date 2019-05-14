@@ -76,11 +76,7 @@ public class PuzzleManager : MonoBehaviour
                         case 4:
                             Instantiate(pipeCruzPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), sorteioRotacao());
                             break;
-                            //default:
-                            //    Instantiate(pipeCruzPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), sorteioRotacao());
-                            //    break;
                     }
-                    Debug.Log("Pipe: " + puzzleAtual.pipes[i, j] + " " + sorteioRotacao());
                 }
         }
         else Debug.Log("Deu ruim 2");

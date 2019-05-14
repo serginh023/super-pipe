@@ -6,15 +6,31 @@ public class Pipe : MonoBehaviour
 {
     private bool isRotating = false;
     public float smooth = 1f;
-      private Quaternion targetRotation;
+    private Quaternion targetRotation;
       
-      void Start(){
-               targetRotation = transform.rotation;
-      }
+    void Start(){
+        targetRotation = transform.rotation;
+    }
 
-    void OnMouseDown(){
-        if(!isRotating)
-            StartCoroutine(Rotate(new Vector3(0, 0, 1), 90, 0.35f));
+    void OnMouseDown()
+    {
+        if (!isRotating)
+        {
+            int flag = 0;
+            if (Input.GetMouseButtonDown(0))
+            {
+                flag = 1;
+                Debug.Log("Esquerdo");
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                flag = -1;
+                Debug.Log("Direito");
+            }
+            StartCoroutine(Rotate(new Vector3(0, 0, 1), 90 * flag, 0.35f));
+
+        }
+
     }
 
     IEnumerator Rotate( Vector3 axis, float angle, float duration)
