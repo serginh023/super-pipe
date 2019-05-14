@@ -213,5 +213,5 @@ MonoBehaviour:
     type: 3}
   pipeCruzPrefab: {fileID: 5302170756683428053, guid: 442489df6338d82489c4525fd9198cd2,
     type: 3}
-  fundo: {fileID: 5793496907723663885, guid: 68b8dad5391db7f4facc20266cdb0b26, type: 3}
+  fundo: {fileID: 5372823808226397605, guid: 35fe9ece438776349addb9b692e46b0d, type: 3}
   faseAtual: 7
