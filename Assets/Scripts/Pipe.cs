@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Pipe : MonoBehaviour
 {
-    private bool isRotating = false;
-    public float smooth = 1f;
-    private Quaternion targetRotation;
+    private bool        isRotating      = false;
+    public float        smooth          = 1f;
+    private Quaternion  targetRotation;
+    public UnityEvent   OnPipeWaterStarts;
       
     void Start(){
         targetRotation = transform.rotation;
@@ -20,17 +22,13 @@ public class Pipe : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 flag = 1;
-                Debug.Log("Esquerdo");
             }
             else if (Input.GetMouseButtonDown(1))
             {
                 flag = -1;
-                Debug.Log("Direito");
             }
             StartCoroutine(Rotate(new Vector3(0, 0, 1), 90 * flag, 0.35f));
-
         }
-
     }
 
     IEnumerator Rotate( Vector3 axis, float angle, float duration)
@@ -39,20 +37,11 @@ public class Pipe : MonoBehaviour
         Quaternion from = transform.rotation;
         Quaternion to   = transform.rotation;
         to              *= Quaternion.Euler( axis * angle );
-
-        //Vector3 originalScale       = transform.localScale;
-        //Vector3 destinationScale    = new Vector3(originalScale.x * 1.25f, originalScale.y * 1.25f, originalScale.z * 1.25f);
         
         float elapsed = 0.0f;
         while( elapsed <= duration )
         {   
             transform.rotation = Quaternion.Slerp(from, to, elapsed / duration );
-            /*
-            if(elapsed <= duration / 2)
-                transform.localScale = Vector3.Lerp(originalScale, destinationScale, elapsed / duration);
-            else
-                transform.localScale = Vector3.Lerp(destinationScale, originalScale, elapsed / duration);
-            */
             elapsed += Time.deltaTime;
             yield return null;
         }

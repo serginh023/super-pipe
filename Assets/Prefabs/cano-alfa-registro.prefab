@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2594245684907201062}
   - component: {fileID: 2594245684907201063}
+  - component: {fileID: 2052657421}
   m_Layer: 0
   m_Name: cano-alfa-registro
   m_TagString: Untagged
@@ -79,3 +80,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2052657421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2594245684907201060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f67c0d8f005ae64a8dd0c4bf40973d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

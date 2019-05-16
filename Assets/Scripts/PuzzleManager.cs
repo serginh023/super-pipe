@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class PuzzleManager : MonoBehaviour
@@ -14,11 +12,12 @@ public class PuzzleManager : MonoBehaviour
     public Transform pipeCurvoPrefab;
     public Transform pipeCruzPrefab;
     public Transform fundo;
-    public Transform alfaRegistro;
+    public Transform pipeAlfa;
+    public Transform pipeOmega;
 
     private string dataPath;
 
-    public int idFaseAtual = 0;
+    public int idFaseAtual = 1;
 
     private Dictionary<int, Puzzle> dicionarioPuzzles;
 
@@ -42,15 +41,14 @@ public class PuzzleManager : MonoBehaviour
     float[,,] criaVetorPosicoes(float x, float y, int qtdX, int qtdY){
         float xbase = x;
         float ybase = y;
-        float[, , ] posicoes = new float[qtdX, qtdY, 3];
+        float[, , ] posicoes = new float[qtdX, qtdY, 2];
 
         float passo = 1.2f;
 
         for(int i = 0; i < qtdX; i++)
             for(int j = 0; j < qtdY; j++){
-                posicoes[i, j, 0] = xbase + passo*i;
-                posicoes[i, j, 1] = ybase - passo*j;
-                posicoes[i, j, 2] = 0;
+                posicoes[i, j, 0] = xbase + passo*i;//coordenada X
+                posicoes[i, j, 1] = ybase - passo*j;//coordenada Y
             }
         return posicoes;
     }
@@ -58,7 +56,7 @@ public class PuzzleManager : MonoBehaviour
     void instanciaPosicoes(int idFase){
         Puzzle puzzleAtual = null;
         if (dicionarioPuzzles.ContainsKey(idFase))
-        {
+            {
             if (dicionarioPuzzles.TryGetValue(idFase, out puzzleAtual)) ;
             else Debug.Log("deu ruim 1");
 
@@ -67,15 +65,9 @@ public class PuzzleManager : MonoBehaviour
                 {
                     Instantiate(fundo, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 1), Quaternion.Euler(new Vector3(0, 0, 0)));
 
+                    //instancia dos pipes no puzzle
                     switch (puzzleAtual.pipes[i, j])
                     {
-                        case 1:
-                            switch ()
-                            {
-
-                            }
-
-                            break;
                         case 2:
                             Instantiate(pipeRetoPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), sorteioRotacao());
                             break;
@@ -87,6 +79,27 @@ public class PuzzleManager : MonoBehaviour
                             break;
                     }
                 }
+
+            foreach (PipeFinal pipeFinal in puzzleAtual.pipesFinals)
+            {
+                switch (pipeFinal.tipo)
+                {
+                    case 0:
+                        Instantiate(
+                            pipeAlfa, 
+                            new Vector3(posicoes[pipeFinal.x, pipeFinal.y, 0], posicoes[pipeFinal.x, pipeFinal.y, 1], 0), 
+                            Quaternion.Euler(new Vector3(0, 0, pipeFinal.rotacao))
+                            );
+                        break;
+                    case 1:
+                        Instantiate(
+                            pipeOmega, 
+                            new Vector3(posicoes[pipeFinal.x, pipeFinal.y, 0], posicoes[pipeFinal.x, pipeFinal.y, 1], 0),
+                            Quaternion.Euler(new Vector3(0, 0, pipeFinal.rotacao))
+                            );
+                        break;
+                }
+            }
         }
         else Debug.Log("Deu ruim 2");
         

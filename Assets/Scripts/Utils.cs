@@ -31,11 +31,11 @@ public static class Utils
             int largura;
             int.TryParse(s[3], out largura);
             //inicia a matriz de pipes com -1 em todas as posições
-            int[, ] pipes = zeraMatriz(altura, largura);
+            int[,] pipes = zeraMatriz(altura, largura);
 
             string[] pipeString = s[4].Split(' ');
 
-            for(int i = 0; i < pipeString.Length-3;i+=3){
+            for(int i = 0; i <= pipeString.Length-3;i+=3){
                 //  pipes[i, i+1] = i+2;
                  int pos1;
                  int.TryParse(pipeString[i], out pos1);
@@ -46,7 +46,36 @@ public static class Utils
                  pipes[pos1, pos2] = pipe;
             }
 
-            Puzzle puzzle = new Puzzle(id, altura, largura, tipo, pipes);
+            string[] pipesFinalString = s[5].Split(' ');
+            Debug.Log(pipesFinalString.Length);
+            foreach (string d in pipesFinalString)
+            {
+                Debug.Log(d);
+            }
+            List<PipeFinal> pipeFinals = new List<PipeFinal>();
+
+            for (int i = 0; i <= pipesFinalString.Length-4; i= i + 4)
+            {
+                int pos1;
+                int.TryParse(pipesFinalString[i], out pos1);
+                Debug.Log(pos1);
+                int pos2;
+                int.TryParse(pipesFinalString[i + 1], out pos2);
+                Debug.Log(pos2);
+                int pipe;
+                int.TryParse(pipesFinalString[i + 2], out pipe);
+                Debug.Log(pipe);
+                int pipe2;
+                int.TryParse(pipesFinalString[i + 3], out pipe2);
+                pipes[pos1, pos2] = pipe;
+                Debug.Log(pipe2);
+
+                PipeFinal pipeFinal = new PipeFinal(pos1, pos2, pipe, pipe2);
+                pipeFinals.Add(pipeFinal);
+                Debug.Log("Adicionado: " + pipeFinal.x + " " + pipeFinal.y + " " + pipeFinal.tipo + " " + pipeFinal.rotacao);
+            }
+
+            Puzzle puzzle = new Puzzle(id, altura, largura, tipo, pipes, pipeFinals);
             
             listaPuzzles.Add(puzzle);
         }
