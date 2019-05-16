@@ -16,14 +16,11 @@ public class PuzzleManager : MonoBehaviour
     public Transform fundo;
     public Transform alfaRegistro;
 
-    string dataPath;
-    public int faseAtual = 0;
+    private string dataPath;
+
+    public int idFaseAtual = 0;
 
     private Dictionary<int, Puzzle> dicionarioPuzzles;
-
-    bool isRotating = false;
-
-    float alfaRegistroTempoEspera = 1.5f;
 
 
     // Start is called before the first frame update
@@ -38,16 +35,14 @@ public class PuzzleManager : MonoBehaviour
         foreach(Puzzle puzzle in listaPuzzles)
             dicionarioPuzzles.Add(puzzle.id, puzzle);
         
-        instanciaPosicoes(faseAtual);
-
-        StartCoroutine(giraRegistro());
+        instanciaPosicoes(idFaseAtual);
         
     }
 
     float[,,] criaVetorPosicoes(float x, float y, int qtdX, int qtdY){
         float xbase = x;
         float ybase = y;
-        float[, , ] posicoes = new float[qtdX, qtdY, 2];
+        float[, , ] posicoes = new float[qtdX, qtdY, 3];
 
         float passo = 1.2f;
 
@@ -55,6 +50,7 @@ public class PuzzleManager : MonoBehaviour
             for(int j = 0; j < qtdY; j++){
                 posicoes[i, j, 0] = xbase + passo*i;
                 posicoes[i, j, 1] = ybase - passo*j;
+                posicoes[i, j, 2] = 0;
             }
         return posicoes;
     }
@@ -73,6 +69,13 @@ public class PuzzleManager : MonoBehaviour
 
                     switch (puzzleAtual.pipes[i, j])
                     {
+                        case 1:
+                            switch ()
+                            {
+
+                            }
+
+                            break;
                         case 2:
                             Instantiate(pipeRetoPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), sorteioRotacao());
                             break;
@@ -105,53 +108,5 @@ public class PuzzleManager : MonoBehaviour
 
             default: return Quaternion.Euler(new Vector3(0, 0, 90));
         }
-    }
-
-    IEnumerator giraRegistro()
-    {
-        yield return new WaitForSeconds(5f);
-
-        StartCoroutine(Rotate(new Vector3(0, 0, 1), 45, 0.5f));
-
-        yield return new WaitForSeconds(alfaRegistroTempoEspera);
-
-        StartCoroutine(Rotate(new Vector3(0, 0, 1), 45, 0.5f));
-
-        yield return new WaitForSeconds(alfaRegistroTempoEspera);
-
-        StartCoroutine(Rotate(new Vector3(0, 0, 1), 45, 0.5f));
-
-        yield return new WaitForSeconds(alfaRegistroTempoEspera);
-
-        StartCoroutine(Rotate(new Vector3(0, 0, 1), 45, 0.5f));
-
-        yield return new WaitForSeconds(alfaRegistroTempoEspera);
-    }
-
-    IEnumerator Rotate(Vector3 axis, float angle, float duration)
-    {
-        isRotating = true;
-        Quaternion from = alfaRegistro.rotation;
-        Quaternion to = alfaRegistro.rotation;
-        to *= Quaternion.Euler(axis * angle);
-
-        //Vector3 originalScale       = transform.localScale;
-        //Vector3 destinationScale    = new Vector3(originalScale.x * 1.25f, originalScale.y * 1.25f, originalScale.z * 1.25f);
-
-        float elapsed = 0.0f;
-        while (elapsed <= duration)
-        {
-            alfaRegistro.rotation = Quaternion.Slerp(from, to, elapsed / duration);
-            /*
-            if(elapsed <= duration / 2)
-                transform.localScale = Vector3.Lerp(originalScale, destinationScale, elapsed / duration);
-            else
-                transform.localScale = Vector3.Lerp(destinationScale, originalScale, elapsed / duration);
-            */
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        alfaRegistro.rotation = to;
-        isRotating = false;
     }
 }
