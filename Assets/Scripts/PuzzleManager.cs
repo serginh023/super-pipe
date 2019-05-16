@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PuzzleManager : MonoBehaviour
 {
-
     float [,,] posicoes;
     float xInicial = -2.4f;
     float yInicial =  2.7f;
@@ -24,6 +23,8 @@ public class PuzzleManager : MonoBehaviour
 
     bool isRotating = false;
 
+    float alfaRegistroTempoEspera = 1.5f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,7 @@ public class PuzzleManager : MonoBehaviour
         
         instanciaPosicoes(faseAtual);
 
+        StartCoroutine(giraRegistro());
         
     }
 
@@ -109,24 +111,28 @@ public class PuzzleManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
 
-        StartCoroutine(Rotate(new Vector3(0, 0, 1), 45, 0.35f));
+        StartCoroutine(Rotate(new Vector3(0, 0, 1), 45, 0.5f));
 
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(alfaRegistroTempoEspera);
 
-        StartCoroutine(Rotate(new Vector3(0, 0, 1), 45, 0.35f));
+        StartCoroutine(Rotate(new Vector3(0, 0, 1), 45, 0.5f));
 
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(alfaRegistroTempoEspera);
 
-        StartCoroutine(Rotate(new Vector3(0, 0, 1), 45, 0.35f));
+        StartCoroutine(Rotate(new Vector3(0, 0, 1), 45, 0.5f));
 
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(alfaRegistroTempoEspera);
+
+        StartCoroutine(Rotate(new Vector3(0, 0, 1), 45, 0.5f));
+
+        yield return new WaitForSeconds(alfaRegistroTempoEspera);
     }
 
     IEnumerator Rotate(Vector3 axis, float angle, float duration)
     {
         isRotating = true;
-        Quaternion from = transform.rotation;
-        Quaternion to = transform.rotation;
+        Quaternion from = alfaRegistro.rotation;
+        Quaternion to = alfaRegistro.rotation;
         to *= Quaternion.Euler(axis * angle);
 
         //Vector3 originalScale       = transform.localScale;
@@ -135,7 +141,7 @@ public class PuzzleManager : MonoBehaviour
         float elapsed = 0.0f;
         while (elapsed <= duration)
         {
-            transform.rotation = Quaternion.Slerp(from, to, elapsed / duration);
+            alfaRegistro.rotation = Quaternion.Slerp(from, to, elapsed / duration);
             /*
             if(elapsed <= duration / 2)
                 transform.localScale = Vector3.Lerp(originalScale, destinationScale, elapsed / duration);
@@ -145,7 +151,7 @@ public class PuzzleManager : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
-        transform.rotation = to;
+        alfaRegistro.rotation = to;
         isRotating = false;
     }
 }
