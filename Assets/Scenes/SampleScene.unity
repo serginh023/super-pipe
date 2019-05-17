@@ -214,8 +214,8 @@ MonoBehaviour:
   pipeCruzPrefab: {fileID: 5302170756683428053, guid: 442489df6338d82489c4525fd9198cd2,
     type: 3}
   fundo: {fileID: 5372823808226397605, guid: 35fe9ece438776349addb9b692e46b0d, type: 3}
-  pipeAlfa: {fileID: 2594245684907201062, guid: dc51f3c0924ddf94f94a6de784984405,
+  pipeAlfa: {fileID: 1150097208500803269, guid: d03a3e6d248381c4a86883a1a77ab55d,
     type: 3}
   pipeOmega: {fileID: 4795014454696974117, guid: 4aa777fe9383df6478028c8b24f6d50f,
     type: 3}
-  idFaseAtual: 1
+  idFaseAtual: 8
