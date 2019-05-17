@@ -87,15 +87,15 @@ public class PuzzleManager : MonoBehaviour
                     case 0:
                         Instantiate(
                             pipeAlfa, 
-                            new Vector3(posicoes[pipeFinal.x, pipeFinal.y, 0], posicoes[pipeFinal.x, pipeFinal.y, 1], 0), 
-                            Quaternion.Euler(new Vector3(0, 0, pipeFinal.rotacao))
+                            new Vector3(posicoes[pipeFinal.x, pipeFinal.y, 0], posicoes[pipeFinal.x, pipeFinal.y, 1], 0),
+                            sorteioRotacao()
                             );
                         break;
                     case 1:
                         Instantiate(
                             pipeOmega, 
                             new Vector3(posicoes[pipeFinal.x, pipeFinal.y, 0], posicoes[pipeFinal.x, pipeFinal.y, 1], 0),
-                            Quaternion.Euler(new Vector3(0, 0, pipeFinal.rotacao))
+                            sorteioRotacao()
                             );
                         break;
                 }

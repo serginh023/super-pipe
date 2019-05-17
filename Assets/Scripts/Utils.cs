@@ -47,32 +47,27 @@ public static class Utils
             }
 
             string[] pipesFinalString = s[5].Split(' ');
-            Debug.Log(pipesFinalString.Length);
-            foreach (string d in pipesFinalString)
-            {
-                Debug.Log(d);
-            }
             List<PipeFinal> pipeFinals = new List<PipeFinal>();
 
             for (int i = 0; i <= pipesFinalString.Length-4; i= i + 4)
             {
                 int pos1;
                 int.TryParse(pipesFinalString[i], out pos1);
-                Debug.Log(pos1);
+               
                 int pos2;
                 int.TryParse(pipesFinalString[i + 1], out pos2);
-                Debug.Log(pos2);
+                
                 int pipe;
                 int.TryParse(pipesFinalString[i + 2], out pipe);
-                Debug.Log(pipe);
+                
                 int pipe2;
                 int.TryParse(pipesFinalString[i + 3], out pipe2);
                 pipes[pos1, pos2] = pipe;
-                Debug.Log(pipe2);
+                
 
                 PipeFinal pipeFinal = new PipeFinal(pos1, pos2, pipe, pipe2);
                 pipeFinals.Add(pipeFinal);
-                Debug.Log("Adicionado: " + pipeFinal.x + " " + pipeFinal.y + " " + pipeFinal.tipo + " " + pipeFinal.rotacao);
+                
             }
 
             Puzzle puzzle = new Puzzle(id, altura, largura, tipo, pipes, pipeFinals);

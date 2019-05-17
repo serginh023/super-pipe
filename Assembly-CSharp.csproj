@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Pipe.cs" />
     <Compile Include="Assets\Scripts\Puzzle.cs" />
     <Compile Include="Assets\Scripts\PuzzleManager.cs" />
+    <Compile Include="Assets\Scripts\SelectOnInput.cs" />
     <Compile Include="Assets\Scripts\Utils.cs" />
     <None Include="Assets\Resources\puzzle.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">

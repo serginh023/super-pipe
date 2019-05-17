@@ -49,11 +49,11 @@ public class Pipe : MonoBehaviour
         isRotating = false;
     }
 
-
     /*
     CÓDIGO DE MODIFICAR ESCALA
     https://answers.unity.com/questions/805199/how-do-i-scale-a-gameobject-over-time.html
      */
 
+    
 
 }
