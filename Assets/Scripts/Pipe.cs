@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,6 +17,8 @@ public class Pipe : MonoBehaviour
 
     void OnMouseDown()
     {
+        verificaPipe();
+        /*
         if (!isRotating)
         {
             int flag = 0;
@@ -29,6 +32,7 @@ public class Pipe : MonoBehaviour
             }
             StartCoroutine(Rotate(new Vector3(0, 0, 1), 90 * flag, 0.35f));
         }
+        Debug.Log("**" + gameObject.name + "**");*/
     }
 
     IEnumerator Rotate( Vector3 axis, float angle, float duration)
@@ -54,6 +58,44 @@ public class Pipe : MonoBehaviour
     https://answers.unity.com/questions/805199/how-do-i-scale-a-gameobject-over-time.html
      */
 
-    
+    int verificaEntradaSaida(int entrada)
+    {
+        Transform transform = GetComponent<Transform>();
+        string name = gameObject.name;
+        int saida = -1;
+        double rotation = Math.Truncate(transform.rotation.z);
+        Debug.Log("Rotacao: " + rotation);
+
+        switch (name)
+        {
+            
+            case "cano-alfa-2(Clone)":
+                switch (rotation)
+                {
+                    case 0:
+                        saida = 0;
+                        break;
+                    case 90:
+                        saida = 3;
+                        break;
+                    case 180:
+                        saida = 2;
+                        break;
+                    case -90:
+                        saida = 1;
+                        break;
+
+                }
+                break;
+
+            case "cano-reto-1.2(Clone)":
+                switch (rotation)
+                {
+                    case 0:
+                }
+
+        }
+        
+    }
 
 }
