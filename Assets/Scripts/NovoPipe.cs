@@ -1,41 +1,44 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-public class Pipe : MonoBehaviour
+public class NovoPipe : MonoBehaviour
 {
-    private bool    isRotating = false;
-    private Quaternion targetRotation;
-    public  float   mooth = 1f;
-    public  UnityEvent OnPipeWaterStarts;
-    public  int     posicaoX;
-    public  int     posicaoY;
-    private int     posicaoSaida;
-
-    public  const int SAIDA_CORRETA     = -10;
-    public  const int SAIDA_ERRADA      = -20;
-    public  const int SAIDA_ESQUERDA    = 3;
-    public  const int SAIDA_BAIXO       = 2;
-    public  const int SAIDA_DIREITA     = 1;
-    public  const int SAIDA_CIMA        = 0;
-
-    private int     saida = -1;
+    private bool isRotating = false;
+    
+    //public  int posicaoX;
+    //public  int posicaoY;
+    private int posicaoSaida;
     private bool podeRotacionar = true;
+
+    public const int SAIDA_CORRETA = -10;
+    public const int SAIDA_ERRADA = -20;
+    public const int SAIDA_ESQUERDA = 3;
+    public const int SAIDA_BAIXO = 2;
+    public const int SAIDA_DIREITA = 1;
+    public const int SAIDA_CIMA = 0;
+
+    private int saida = -1;
 
     public static event Action<int> PipeSaida = delegate { };
 
-
-    void Start()
+    struct MensagemPipe
     {
-        targetRotation = transform.rotation;
+        int ladoSaida;
+        int posicaoX;
+        int posicaoY;
+        public MensagemPipe(int ladoSaida, int posX, int posY)
+        {
+            this.ladoSaida  = ladoSaida;
+            this.posicaoX   = posX;
+            this.posicaoY   = posY;
+        }
     }
 
+    // Start is called before the first frame update
     void OnMouseDown()
     {
-        int entrada = 0;
-
-        //verificaSaida(entrada);
 
         if (!isRotating && podeRotacionar)
         {
@@ -71,11 +74,6 @@ public class Pipe : MonoBehaviour
         isRotating = false;
     }
 
-    /*
-    CÓDIGO DE MODIFICAR ESCALA
-    https://answers.unity.com/questions/805199/how-do-i-scale-a-gameobject-over-time.html
-     */
-
     /// <summary>
     /// Verifica se a entrada de água do pipe atual é válida
     /// </summary>
@@ -85,7 +83,7 @@ public class Pipe : MonoBehaviour
     {
         Transform transform = GetComponent<Transform>();
         string name = gameObject.name;
-       
+
         double rotation = Math.Truncate(transform.rotation.z);
 
         switch (name)
@@ -224,19 +222,6 @@ public class Pipe : MonoBehaviour
         return -1;
     }
 
-    IEnumerator aguardaAguaPassar()
-    {
-        yield return new WaitForSeconds(10f);
-        retornaSaida();
-    }
-
-    private int retornaSaida()
-    {
-        return saida;
-        //TODO: falta colocar um evento para ser consumido/disparado pelo PuzzleManager
-
-    }
-
     private void OnEnable()
     {
         PuzzleManager.OnClicked += iniciaPuzzle;
@@ -250,7 +235,8 @@ public class Pipe : MonoBehaviour
     IEnumerator startaAgua()
     {
         yield return new WaitForSeconds(1f);
-        int saida = verificaSaida(0);
-        PipeSaida(saida);
+        int ladoSaida = verificaSaida(0);
+        PipeSaida(ladoSaida);
+        //TODO faltam animações da água aqui
     }
 }

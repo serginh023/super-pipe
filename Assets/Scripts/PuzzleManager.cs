@@ -24,7 +24,7 @@ public class PuzzleManager : MonoBehaviour
     private Dictionary<int, Puzzle> dicionarioPuzzles;
 
     public delegate void ClickAction();
-    public event ClickAction OnClicked;
+    public static event ClickAction OnClicked;
 
     public Text textTempo;
 
@@ -65,7 +65,10 @@ public class PuzzleManager : MonoBehaviour
         Puzzle puzzleAtual = null;
         if (dicionarioPuzzles.ContainsKey(idFase))
             {
-            if (dicionarioPuzzles.TryGetValue(idFase, out puzzleAtual)) ;
+            if (dicionarioPuzzles.TryGetValue(idFase, out puzzleAtual))
+            {
+                
+            }
             else Debug.Log("deu ruim 1");
 
             for (int i = 0; i < qtdX; i++)
@@ -143,5 +146,30 @@ public class PuzzleManager : MonoBehaviour
             yield return null;
         }
         textTempo.text = "GO!";
+
+        //Precisa-se dar início a água passando pelos canos
+        if (OnClicked != null)
+            OnClicked();
     }
+
+    private void Awake()
+    {
+        NovoPipe.PipeSaida += verificaSaidaAgua;
+    }
+
+    public void verificaSaidaAgua(int saida)
+    {
+        switch (saida)
+        {
+            case -1:
+                //Game Over!
+                break;
+            //case 0:
+            //case 1:
+            //case 2:
+            //case 3:
+        }
+    }
+
+
 }
