@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PuzzleManager : MonoBehaviour
 {
@@ -21,6 +23,11 @@ public class PuzzleManager : MonoBehaviour
 
     private Dictionary<int, Puzzle> dicionarioPuzzles;
 
+    public delegate void ClickAction();
+    public event ClickAction OnClicked;
+
+    public Text textTempo;
+
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +42,8 @@ public class PuzzleManager : MonoBehaviour
             dicionarioPuzzles.Add(puzzle.id, puzzle);
         
         instanciaPosicoes(idFaseAtual);
-        
+
+        StartCoroutine(contagemRegressiva());
     }
 
     float[,,] criaVetorPosicoes(float x, float y, int qtdX, int qtdY){
@@ -121,5 +129,19 @@ public class PuzzleManager : MonoBehaviour
 
             default: return Quaternion.Euler(new Vector3(0, 0, 90));
         }
+    }
+
+    private IEnumerator contagemRegressiva()
+    {
+        float tempo=6f;
+        while (tempo > 1f)
+        {
+            tempo = tempo - Time.deltaTime;
+            int tempoInt = (int)tempo;
+            string s = tempoInt.ToString();
+            textTempo.text = s;
+            yield return null;
+        }
+        textTempo.text = "GO!";
     }
 }
