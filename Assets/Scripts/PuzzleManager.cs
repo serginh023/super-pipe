@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class PuzzleManager : MonoBehaviour
 {
     float [,,] posicoes;
@@ -28,7 +29,7 @@ public class PuzzleManager : MonoBehaviour
 
     public Text textTempo;
 
-    private GameObject[,] puzzle = new GameObject[5, 6];
+    private GameObject[,] puzzle;
 
 
     // Start is called before the first frame update
@@ -36,9 +37,11 @@ public class PuzzleManager : MonoBehaviour
     {
         dicionarioPuzzles = new Dictionary<int, Puzzle>();
 
-        List<Puzzle> listaPuzzles = Utils.consomeDicionario();
+        List<Puzzle> listaPuzzles = Utilidade.consomeDicionario();
 
         posicoes = criaVetorPosicoes(xInicial, yInicial, qtdX, qtdY);
+
+        puzzle = new GameObject[qtdX,qtdY];
 
         foreach(Puzzle puzzle in listaPuzzles)
             dicionarioPuzzles.Add(puzzle.id, puzzle);
@@ -77,48 +80,55 @@ public class PuzzleManager : MonoBehaviour
                 for (int j = 0; j < qtdY; j++)
                 {
                     Instantiate(fundo, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 1), Quaternion.Euler(new Vector3(0, 0, 0)));
-                    Object gameObject;
+                    Transform gameObject;
                     GameObject go = null;
 
                     //instancia dos pipes no puzzle
                     switch (puzzleAtual.pipes[i, j])
                     {
+                        case 0:
+                            gameObject  = Instantiate(
+                                pipeAlfa,
+                                new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0),
+                                sorteioRotacao()
+                                );
+                            go          = gameObject.gameObject;
+                            break;
+                        case 1:
+                            gameObject  = Instantiate(
+                                pipeOmega,
+                                new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0),
+                                sorteioRotacao()
+                                );
+                            go          = gameObject.gameObject;
+                            break;
                         case 2:
-                            gameObject  = Instantiate(pipeRetoPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), sorteioRotacao());
-                            go          = (GameObject) gameObject;
+                            gameObject  = Instantiate(
+                                pipeRetoPrefab, 
+                                new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), 
+                                sorteioRotacao()
+                                );
+                            go          = gameObject.gameObject;
                             break;
                         case 3:
-                            gameObject  = Instantiate(pipeCurvoPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), sorteioRotacao());
-                            go          = (GameObject)gameObject;
+                            gameObject  = Instantiate(
+                                pipeCurvoPrefab,
+                                new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0),
+                                sorteioRotacao()
+                                );
+                            go          = gameObject.gameObject;
                             break;
                         case 4:
-                            gameObject = Instantiate(pipeCruzPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), sorteioRotacao());
-                            go = (GameObject)gameObject;
+                            gameObject  = Instantiate(
+                                pipeCruzPrefab,
+                                new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0),
+                                sorteioRotacao()
+                                );
+                            go          = gameObject.gameObject;
                             break;
                     }
                     puzzle[i, j] = go;
                 }
-
-            foreach (PipeFinal pipeFinal in puzzleAtual.pipesFinals)
-            {
-                switch (pipeFinal.tipo)
-                {
-                    case 0:
-                        Instantiate(
-                            pipeAlfa, 
-                            new Vector3(posicoes[pipeFinal.x, pipeFinal.y, 0], posicoes[pipeFinal.x, pipeFinal.y, 1], 0),
-                            sorteioRotacao()
-                            );
-                        break;
-                    case 1:
-                        Instantiate(
-                            pipeOmega, 
-                            new Vector3(posicoes[pipeFinal.x, pipeFinal.y, 0], posicoes[pipeFinal.x, pipeFinal.y, 1], 0),
-                            sorteioRotacao()
-                            );
-                        break;
-                }
-            }
         }
         else Debug.Log("Deu ruim 2");
         
@@ -178,6 +188,5 @@ public class PuzzleManager : MonoBehaviour
             //case 3:
         }
     }
-
 
 }

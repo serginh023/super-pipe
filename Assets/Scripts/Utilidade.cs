@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-public static class Utils
+public static class Utilidade
 {
 
     public static List<Puzzle> consomeDicionario(){
@@ -46,31 +46,7 @@ public static class Utils
                  pipes[pos1, pos2] = pipe;
             }
 
-            string[] pipesFinalString = s[5].Split(' ');
-            List<PipeFinal> pipeFinals = new List<PipeFinal>();
-
-            for (int i = 0; i <= pipesFinalString.Length-4; i= i + 4)
-            {
-                int pos1;
-                int.TryParse(pipesFinalString[i], out pos1);
-               
-                int pos2;
-                int.TryParse(pipesFinalString[i + 1], out pos2);
-                
-                int pipe;
-                int.TryParse(pipesFinalString[i + 2], out pipe);
-                
-                int pipe2;
-                int.TryParse(pipesFinalString[i + 3], out pipe2);
-                pipes[pos1, pos2] = pipe;
-                
-
-                PipeFinal pipeFinal = new PipeFinal(pos1, pos2, pipe, pipe2);
-                pipeFinals.Add(pipeFinal);
-                
-            }
-
-            Puzzle puzzle = new Puzzle(id, altura, largura, tipo, pipes, pipeFinals);
+            Puzzle puzzle = new Puzzle(id, altura, largura, tipo, pipes);
             
             listaPuzzles.Add(puzzle);
         }

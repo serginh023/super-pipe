@@ -486,5 +486,5 @@ MonoBehaviour:
     type: 3}
   pipeOmega: {fileID: 4795014454696974117, guid: 4aa777fe9383df6478028c8b24f6d50f,
     type: 3}
-  idFaseAtual: 1
+  idFaseAtual: 4
   textTempo: {fileID: 1985459456}
