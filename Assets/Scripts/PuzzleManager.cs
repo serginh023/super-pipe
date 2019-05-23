@@ -28,6 +28,8 @@ public class PuzzleManager : MonoBehaviour
 
     public Text textTempo;
 
+    private GameObject[,] puzzle = new GameObject[5, 6];
+
 
     // Start is called before the first frame update
     void Start()
@@ -75,20 +77,26 @@ public class PuzzleManager : MonoBehaviour
                 for (int j = 0; j < qtdY; j++)
                 {
                     Instantiate(fundo, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 1), Quaternion.Euler(new Vector3(0, 0, 0)));
+                    Object gameObject;
+                    GameObject go = null;
 
                     //instancia dos pipes no puzzle
                     switch (puzzleAtual.pipes[i, j])
                     {
                         case 2:
-                            Instantiate(pipeRetoPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), sorteioRotacao());
+                            gameObject  = Instantiate(pipeRetoPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), sorteioRotacao());
+                            go          = (GameObject) gameObject;
                             break;
                         case 3:
-                            Instantiate(pipeCurvoPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), sorteioRotacao());
+                            gameObject  = Instantiate(pipeCurvoPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), sorteioRotacao());
+                            go          = (GameObject)gameObject;
                             break;
                         case 4:
-                            Instantiate(pipeCruzPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), sorteioRotacao());
+                            gameObject = Instantiate(pipeCruzPrefab, new Vector3(posicoes[i, j, 0], posicoes[i, j, 1], 0), sorteioRotacao());
+                            go = (GameObject)gameObject;
                             break;
                     }
+                    puzzle[i, j] = go;
                 }
 
             foreach (PipeFinal pipeFinal in puzzleAtual.pipesFinals)
