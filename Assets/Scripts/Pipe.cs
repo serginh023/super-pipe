@@ -224,33 +224,7 @@ public class Pipe : MonoBehaviour
         return -1;
     }
 
-    IEnumerator aguardaAguaPassar()
-    {
-        yield return new WaitForSeconds(10f);
-        retornaSaida();
-    }
 
-    private int retornaSaida()
-    {
-        return saida;
-        //TODO: falta colocar um evento para ser consumido/disparado pelo PuzzleManager
 
-    }
 
-    private void OnEnable()
-    {
-        PuzzleManager.OnClicked += iniciaPuzzle;
-    }
-
-    public void iniciaPuzzle()
-    {
-        StartCoroutine(startaAgua());
-    }
-
-    IEnumerator startaAgua()
-    {
-        yield return new WaitForSeconds(1f);
-        int saida = verificaSaida(0);
-        PipeSaida(saida);
-    }
 }

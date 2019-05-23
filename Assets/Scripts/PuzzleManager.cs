@@ -25,7 +25,7 @@ public class PuzzleManager : MonoBehaviour
     private Dictionary<int, Puzzle> dicionarioPuzzles;
 
     public delegate void ClickAction();
-    public static event ClickAction OnClicked;
+    public static event ClickAction OnWaterStarted;
 
     public Text textTempo;
 
@@ -165,28 +165,32 @@ public class PuzzleManager : MonoBehaviour
         }
         textTempo.text = "GO!";
 
-        //Precisa-se dar início a água passando pelos canos
-        if (OnClicked != null)
-            OnClicked();
+        //INICIA A PASSAGEM DA ÁGUA
+        if (OnWaterStarted != null)
+            OnWaterStarted();
     }
 
     private void Awake()
     {
-        NovoPipe.PipeSaida += verificaSaidaAgua;
+        //NovoPipe.PipeSaida += verificaSaidaAgua;
     }
 
-    public void verificaSaidaAgua(int saida)
+    public void verificaSaidaAgua(NovoPipe saida)
     {
-        switch (saida)
-        {
-            case -1:
-                //Game Over!
-                break;
-            //case 0:
-            //case 1:
-            //case 2:
-            //case 3:
-        }
+        //switch (saida)
+        //{
+        //    case -1:
+        //        //Game Over!
+        //        break;
+        //    case 0:
+        //        if ()
+        //        {
+
+        //        }
+        //    //case 1:
+        //    //case 2:
+        //    //case 3:
+        //}
     }
 
 }
