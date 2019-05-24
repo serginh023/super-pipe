@@ -1,27 +1,24 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NovoPipe : MonoBehaviour
 {
-    private bool isRotating = false;
-    
-    //public  int posicaoX;
-    //public  int posicaoY;
-    private int posicaoSaida;
-    private bool podeRotacionar = true;
+    private bool        isRotating = false;
 
-    public const int SAIDA_CORRETA = -10;
-    public const int SAIDA_ERRADA = -20;
-    public const int SAIDA_ESQUERDA = 3;
-    public const int SAIDA_BAIXO = 2;
-    public const int SAIDA_DIREITA = 1;
-    public const int SAIDA_CIMA = 0;
+    private int         posicaoSaida;
+    private bool        podeRotacionar = true;
 
-    private int saida = -1;
+    public const int    SAIDA_CORRETA = -10;
+    public const int    SAIDA_ERRADA = -20;
+    public const int    SAIDA_ESQUERDA = 3;
+    public const int    SAIDA_BAIXO = 2;
+    public const int    SAIDA_DIREITA = 1;
+    public const int    SAIDA_CIMA = 0;
 
-    public static event Action<int> PipeSaida = delegate { };
+    private int         saida = -1;
+
+    public static event Action<MensagemPipe> PipeSaida = delegate { };
 
     struct MensagemPipe
     {
@@ -222,21 +219,31 @@ public class NovoPipe : MonoBehaviour
         return -1;
     }
 
+    /*
+     * Resoluções para iniciar Puzzle
+     */
     private void OnEnable()
     {
-        PuzzleManager.OnClicked += iniciaPuzzle;
+        PuzzleManager.OnWaterStarted += iniciaPuzzle;
+    }
+
+    private void OndDisable()
+    {
+        PuzzleManager.OnWaterStarted -= iniciaPuzzle;
     }
 
     public void iniciaPuzzle()
     {
-        StartCoroutine(startaAgua());
+        int saida = verificaSaida(0);
+        MensagemPipe mpipe = new MensagemPipe(saida, );
+        PipeSaida();
     }
 
-    IEnumerator startaAgua()
-    {
-        yield return new WaitForSeconds(1f);
-        int ladoSaida = verificaSaida(0);
-        PipeSaida(ladoSaida);
-        //TODO faltam animações da água aqui
-    }
+    /*
+     * FIM RESOLUÇÕES INICIAR
+     */
+
+    /*
+     * RESOLUÇÕES PARA PASSAR ÁGUA PELO CANO
+     */
 }

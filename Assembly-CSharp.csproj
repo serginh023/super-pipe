@@ -70,7 +70,7 @@
     <Compile Include="Assets\Scripts\Puzzle.cs" />
     <Compile Include="Assets\Scripts\PuzzleManager.cs" />
     <Compile Include="Assets\Scripts\SelectOnInput.cs" />
-    <Compile Include="Assets\Scripts\Utils.cs" />
+    <Compile Include="Assets\Scripts\Utilidade.cs" />
     <None Include="Assets\Audio\Melodious piano works\ReadMe.txt" />
     <None Include="Assets\Resources\puzzle.txt" />
     <Reference Include="Unity.Timeline.Editor">
