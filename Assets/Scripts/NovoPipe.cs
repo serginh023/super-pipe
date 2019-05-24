@@ -18,7 +18,7 @@ public class NovoPipe : MonoBehaviour
 
     private int         saida = -1;
 
-    public static event Action<MensagemPipe> PipeSaida = delegate { };
+    //public static event Action<MensagemPipe> PipeSaida = delegate { };
 
     struct MensagemPipe
     {
@@ -222,22 +222,22 @@ public class NovoPipe : MonoBehaviour
     /*
      * Resoluções para iniciar Puzzle
      */
-    private void OnEnable()
-    {
-        PuzzleManager.OnWaterStarted += iniciaPuzzle;
-    }
+    //private void OnEnable()
+    //{
+    //    PuzzleManager.OnWaterStarted += iniciaPuzzle;
+    //}
 
-    private void OndDisable()
-    {
-        PuzzleManager.OnWaterStarted -= iniciaPuzzle;
-    }
+    //private void OndDisable()
+    //{
+    //    PuzzleManager.OnWaterStarted -= iniciaPuzzle;
+    //}
 
-    public void iniciaPuzzle()
-    {
-        int saida = verificaSaida(0);
-        MensagemPipe mpipe = new MensagemPipe(saida, );
-        PipeSaida();
-    }
+    //public void iniciaPuzzle()
+    //{
+    //    int saida = verificaSaida(0);
+    //    MensagemPipe mpipe = new MensagemPipe(saida, );
+    //    PipeSaida();
+    //}
 
     /*
      * FIM RESOLUÇÕES INICIAR
