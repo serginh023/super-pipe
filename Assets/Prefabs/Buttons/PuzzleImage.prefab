@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2956352041851024458}
   - component: {fileID: 2239283781611161427}
   - component: {fileID: 2537955009176745259}
-  - component: {fileID: 3998178191498444436}
+  - component: {fileID: 4754055974782362657}
   m_Layer: 5
   m_Name: PuzzleImage
   m_TagString: pipeGameObject
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &3998178191498444436
+--- !u!114 &4754055974782362657
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,6 +84,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3467009116533203077}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a18ccb0094f1cd142963f34bc6e2287d, type: 3}
+  m_Script: {fileID: 11500000, guid: ccc648c4d39162e4091969339c1336f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

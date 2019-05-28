@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.EventSystems;
 
 
-public class Rotate: MonoBehaviour, IPointerClickHandler
+public class Spin : MonoBehaviour, IPointerClickHandler
 {
     private float rotAngle = 0;
     private Vector2 pivotPoint;
@@ -15,10 +15,10 @@ public class Rotate: MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         if (!isRotating)
-        
+
             StartCoroutine(Rotating(new Vector3(0, 0, 1), 90, 0.35f));
-        
-        
+
+
     }
 
     IEnumerator Rotating(Vector3 axis, float angle, float duration)
