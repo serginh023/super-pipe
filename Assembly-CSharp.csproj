@@ -72,10 +72,12 @@
     <Compile Include="Assets\Scripts\SelectOnInput.cs" />
     <Compile Include="Assets\Scripts\Teste\AddButtons.cs" />
     <Compile Include="Assets\Scripts\Teste\GameController.cs" />
+    <Compile Include="Assets\Scripts\Teste\PuzzleNovo.cs" />
     <Compile Include="Assets\Scripts\Teste\Spin.cs" />
     <Compile Include="Assets\Scripts\Utilidade.cs" />
     <None Include="Assets\Resources\Teste\0.txt" />
     <None Include="Assets\Audio\Melodious piano works\ReadMe.txt" />
+    <None Include="Assets\Resources\Teste\1.txt" />
     <None Include="Assets\Resources\puzzle.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/git/games/super-pipe/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

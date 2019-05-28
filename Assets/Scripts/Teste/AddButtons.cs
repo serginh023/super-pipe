@@ -24,4 +24,5 @@ public class AddButtons : MonoBehaviour
             go.transform.SetParent(puzzleFieldBG, false);
         }
     }
+
 }

@@ -8,14 +8,11 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     [SerializeField]
-    private List<Image> imgs = new List<Image>();
-    private List<Button> btns = new List<Button>();
+    private List<GameObject> btns = new List<GameObject>();
 
-    private List<Image> imgsAlfa = new List<Image>();
-    private List<Button> btnsAlfa = new List<Button>();
+    private List<GameObject> btnsAlfa = new List<GameObject>();
 
-    private List<Image> imgsOmega = new List<Image>();
-    private List<Button> btnsOmega = new List<Button>();
+    private List<GameObject> btnsOmega = new List<GameObject>();
 
     [SerializeField]
     TextAsset puzzle;
@@ -38,79 +35,42 @@ public class GameController : MonoBehaviour
 
     float timeStartPuzzle;
 
+    List<PuzzleNovo> puzzles;
+
+    [SerializeField]
+    private int idFaseAtual;
+
+    private const int CIMA      = 0;
+    private const int ESQUERDA  = 3;
+    private const int DIREITA   = 1;
+    private const int BAIXO     = 2;
+
+
     void Start()
     {
-        GetImages();
+        GetButtons();
+        AddListeners(); 
         FillPuzzle();
 
     }
 
-    void GetImages()
+    void GetButtons()
     {
-        //GameObject[] objects = GameObject.FindGameObjectsWithTag("pipeGameObject");
         GameObject[] objects = GameObject.FindGameObjectsWithTag("pipe");
 
-        //Debug.Log("length: " + objects.Length);
 
         for (int i = 0; i < objects.Length; i++)
         {
-            //imgs.Add(objects[i].GetComponent<Image>());
-            //imgs[i].sprite = bgSprite;
-            btns.Add(objects[i].GetComponent<Button>());
-            btns[i].image.sprite = spriteCanoAlfa;
+            btns.Add(objects[i]);
         }
     }
-
-    /// <summary>
-    /// Preenche oas células do puzzle com os devidos sprites
-    /// </summary>
-    //void fillPuzzle()
-    //{
-
-    //    string puzzleText = puzzle.text.Replace("\r", "");
-    //    string[] linhas = puzzleText.Split('\n');
-    //    Int32.TryParse(linhas[0], out qtdlinhas);
-    //    Int32.TryParse(linhas[1], out qtdcolunas);
-    //    timeStartPuzzle =  float.Parse(linhas[3]);
-
-    //    int index = 0;
-    //    for (int i = 3; i < linhas.Length; i++)
-    //    {
-    //        switch (linhas[i])
-    //        {
-    //            case "0":
-    //                imgs[index].sprite = spriteCanoAlfa;
-    //                imgsAlfa.Add(imgs[index]);
-    //                break;
-    //            case "1":
-    //                imgs[index].sprite = spriteCanoOmega;
-    //                imgsOmega.Add(imgs[index]);
-    //                break;
-    //            case "2":
-    //                imgs[index].sprite = spriteCanoReto;
-    //                break;
-    //            case "3":
-    //                imgs[index].sprite = spriteCanoCurvo;
-    //                break;
-    //            case "4":
-    //                imgs[index].sprite = spriteCanoCruz;
-    //                break;
-
-    //            default:
-    //                imgs[index].sprite = spriteBG;
-    //                break;
-    //        }
-    //        index++;
-    //    }
-    //}
-
 
     /// <summary>
     /// Preenche as células do puzzle com os devidos sprites, utilizando Button
     /// </summary>
     void FillPuzzle()
     {
-        string puzzleText = puzzle.text.Replace("\r", "");
+        string puzzleText = readPuzzle(idFaseAtual).Replace("\r", "");
         string[] linhas = puzzleText.Split('\n');
         Int32.TryParse(linhas[0], out qtdlinhas);
         Int32.TryParse(linhas[1], out qtdcolunas);
@@ -122,45 +82,80 @@ public class GameController : MonoBehaviour
             switch (linhas[i])
             {
                 case "0":
-                    btns[index].image.sprite = spriteCanoAlfa;
+                    btns[index].GetComponent<Button>().image.sprite = spriteCanoAlfa;
                     //Acrescenta o pipe na lista de canos Alfa para melhor controle
                     btnsAlfa.Add(btns[index]);
                     break;
                 case "1":
-                    btns[index].image.sprite = spriteCanoOmega;
+                    btns[index].GetComponent<Button>().image.sprite = spriteCanoOmega;
                     //Acrescenta o pipe na lista de canos Omega para melhor controle
                     btnsOmega.Add(btns[index]);
                     break;
                 case "2":
-                    imgs[index].sprite = spriteCanoReto;
-                    btns[index].image.sprite = spriteCanoReto;
+                    btns[index].GetComponent<Button>().image.sprite = spriteCanoReto;
                     break;
                 case "3":
-                    imgs[index].sprite = spriteCanoCurvo;
-                    btns[index].image.sprite = spriteCanoCurvo;
+                    btns[index].GetComponent<Button>().image.sprite = spriteCanoCurvo;
                     break;
                 case "4":
-                    imgs[index].sprite = spriteCanoCruz;
-                    btns[index].image.sprite = spriteCanoCruz;
+                    btns[index].GetComponent<Button>().image.sprite = spriteCanoCruz;
                     break;
 
                 default:
-                    imgs[index].sprite = spriteBG;
-                    btns[index].image.sprite = spriteBG;
+                    btns[index].GetComponent<Button>().image.sprite = spriteBG;
                     break;
             }
             index++;
         }
     }
 
+    /// <summary>
+    /// Aqui o puzzle de fato é iniciado, com uma contagem regresiva de n segundos
+    /// Após isso, todos os canos Alfa do puzzle inicia a liberação de água
+    /// </summary>
+    /// <returns></returns>
     IEnumerator iniciaPuzzle()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(timeStartPuzzle);
 
-        foreach(Image img in imgsAlfa)
+        foreach(GameObject btn in btnsAlfa)
         {
-            
+            //Inicia água e animação da água
+            //start água
+            switch (btn.transform.rotation.z)
+            {
+                case 0:
+                     
+                    break;
+            }
+
         }
+
+        yield return new WaitForSeconds(1f);
+
+
+
+    }
+
+    void AddListeners()
+    {
+        foreach (GameObject btn in btns)
+        {
+            btn.GetComponent<Button>().onClick.AddListener(() => PickPipe());
+        }
+    }
+
+    public void PickPipe()
+    {
+        string name = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
+        
+    }
+
+    string readPuzzle(int id)
+    {
+        TextAsset[] puzzleText = Resources.LoadAll<TextAsset>("Teste");
+        return puzzleText[id].text;
+
     }
 
 }
