@@ -51,7 +51,6 @@ public class GameController : MonoBehaviour
         GetButtons();
         AddListeners(); 
         FillPuzzle();
-
     }
 
     void GetButtons()
@@ -125,7 +124,7 @@ public class GameController : MonoBehaviour
             switch (btn.transform.rotation.z)
             {
                 case 0:
-                     
+
                     break;
             }
 
