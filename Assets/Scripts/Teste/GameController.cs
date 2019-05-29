@@ -124,7 +124,7 @@ public class GameController : MonoBehaviour
             switch (btn.transform.rotation.z)
             {
                 case 0:
-
+                    
                     break;
             }
 
