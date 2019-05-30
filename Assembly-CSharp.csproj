@@ -72,6 +72,9 @@
     <Compile Include="Assets\Scripts\SelectOnInput.cs" />
     <Compile Include="Assets\Scripts\Teste\AddButtons.cs" />
     <Compile Include="Assets\Scripts\Teste\GameController.cs" />
+    <Compile Include="Assets\Scripts\Teste\MainMenu\LoadSceneOnClick.cs" />
+    <Compile Include="Assets\Scripts\Teste\MainMenu\QuitOnClick.cs" />
+    <Compile Include="Assets\Scripts\Teste\MainMenu\SelectButtonOnInput.cs" />
     <Compile Include="Assets\Scripts\Teste\PuzzleNovo.cs" />
     <Compile Include="Assets\Scripts\Teste\RotacaoAleatoria.cs" />
     <Compile Include="Assets\Scripts\Teste\Spin.cs" />
