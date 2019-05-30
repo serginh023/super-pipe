@@ -39,14 +39,15 @@ public class Spin : MonoBehaviour, IPointerClickHandler
         isRotating = false;
     }
 
-    void passaAgua()
+    public void PassaAgua()
     {
-        StartCoroutine(passandoAgua());
+        StartCoroutine(PassandoAgua());
     }
 
-    IEnumerator passandoAgua()
+    IEnumerator PassandoAgua()
     {
         yield return new WaitForSeconds(10f);
+
         //precisa-se colocar o assets da água caindo pelo cano
     }
 

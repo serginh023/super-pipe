@@ -45,6 +45,8 @@ public class GameController : MonoBehaviour
     private const int DIREITA   = 1;
     private const int BAIXO     = 2;
 
+    private List<Button> aguaPassando = new List<Button>();
+
 
     void Start()
     {
@@ -121,17 +123,11 @@ public class GameController : MonoBehaviour
         {
             //Inicia água e animação da água
             //start água
-            switch (btn.transform.rotation.z)
-            {
-                case 0:
-                    
-                    break;
-            }
+            btn.GetComponent<Spin>().PassaAgua();
 
         }
 
         yield return new WaitForSeconds(1f);
-
 
 
     }
