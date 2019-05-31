@@ -122,8 +122,8 @@ public class GameController : MonoBehaviour
         foreach(GameObject btn in btnsAlfa)
         {
             //Inicia água e animação da água
-            //start água
-            btn.GetComponent<Spin>().PassaAgua();
+            //start água - começou o puzzle
+            btn.GetComponent<Spin>().PassaAgua(0);
 
         }
 
@@ -142,8 +142,12 @@ public class GameController : MonoBehaviour
 
     public void PickPipe()
     {
-        string name = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
+        GameObject obj  = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+        //string name = obj.name;
+        Button btn      = obj.GetComponent<Button>();
         
+
+        Debug.Log("image name: **" + btn.image.sprite.name + "**");
     }
 
     string readPuzzle(int id)
@@ -153,4 +157,14 @@ public class GameController : MonoBehaviour
 
     }
 
+    private void Awake()
+    {
+        Spin.onAguaPassando += SpinOnAguaPassando;
+    }
+
+    private void SpinOnAguaPassando(GameObject obj)
+    {
+        string nome = obj.name;
+
+    }
 }
