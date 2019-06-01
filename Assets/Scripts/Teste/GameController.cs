@@ -160,11 +160,59 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         Spin.onAguaPassando += SpinOnAguaPassando;
+        Spin.onAlfa += SpinOnAguaPassando;
     }
 
     private void SpinOnAguaPassando(GameObject obj)
     {
         string nome = obj.name;
+        Spin spin = obj.GetComponent<Spin>();
 
+        //if (spin.verificaSaida())
+        //{
+
+        //}
+    }
+
+    private void SpinOnAlfa(GameObject obj)
+    {
+        Spin   spin     = obj   .GetComponent<Spin>();
+        Button btn      = spin  .GetComponent<Button>();
+        int    index    = Int32 .Parse(btn.name);
+
+        switch (spin.saidaAtual)
+        {
+            case Spin.CIMA:
+                int indexCima = Int32.Parse(btns[index - qtdcolunas].name);
+                if (verificaIndex(indexCima)) {
+                    //SpinOnAguaPassando(btns[indexCima]);
+                    Spin spin2 = btns[indexCima].GetComponent<Spin>();
+                    spin2.PassaAgua(spin.saidaAtual);
+                    /*
+                     * verificar
+                     */
+                }
+                 
+
+                    /*
+                     * Se não entrar no THEN deve-se dar GAMEOVER
+                     */
+                break;
+            case Spin.DIREITA:
+                break;
+            case Spin.BAIXO:
+                break;
+            case Spin.ESQUERDA:
+                break;
+        }
+    }
+
+    private bool verificaIndex(int index)
+    {
+        if (index >= 0 && index < btns.Count)
+
+            return true;
+
+        return false;
     }
 }

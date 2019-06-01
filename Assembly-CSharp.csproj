@@ -79,7 +79,12 @@
     <Compile Include="Assets\Scripts\Teste\RotacaoAleatoria.cs" />
     <Compile Include="Assets\Scripts\Teste\Spin.cs" />
     <Compile Include="Assets\Scripts\Utilidade.cs" />
+    <None Include="Assets\Resources\Teste\6.txt" />
     <None Include="Assets\Resources\Teste\0.txt" />
+    <None Include="Assets\Resources\Teste\2.txt" />
+    <None Include="Assets\Resources\Teste\4.txt" />
+    <None Include="Assets\Resources\Teste\5.txt" />
+    <None Include="Assets\Resources\Teste\3.txt" />
     <None Include="Assets\Audio\Melodious piano works\ReadMe.txt" />
     <None Include="Assets\Resources\Teste\1.txt" />
     <None Include="Assets\Resources\puzzle.txt" />

@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class Spin : MonoBehaviour, IPointerClickHandler
 {
-    private int saidaAtual = 0;
-    private int entradaAtual = 0;
+    public int saidaAtual = 0;
+    public int entradaAtual = 0;
     private string nomePipe;
     private Vector2 pivotPoint;
     private int angle = 90;
@@ -16,12 +16,13 @@ public class Spin : MonoBehaviour, IPointerClickHandler
     private bool isRotating;
 
     public static event Action<GameObject> onAguaPassando = delegate { };
+    public static event Action<GameObject> onAlfa = delegate { };
 
     private bool isRotatingEnable = true;
-    private const int CIMA = 0;
-    private const int DIREITA = 1;
-    private const int BAIXO = 2;
-    private const int ESQUERDA = 3;
+    public const int CIMA = 0;
+    public const int DIREITA = 1;
+    public const int BAIXO = 2;
+    public const int ESQUERDA = 3;
 
 
     public void OnPointerClick(PointerEventData eventData)
@@ -63,12 +64,31 @@ public class Spin : MonoBehaviour, IPointerClickHandler
         //Precisa-se colocar a saída da água quando terminar de passar
 
         //precisa-se colocar o assets da água caindo pelo cano
-        onAguaPassando(gameObject);
+        switch (transform.rotation.z)
+        {
+            case 0:
+                saidaAtual = CIMA;
+                break;
+            case 90:
+                saidaAtual = ESQUERDA;
+                break;
+            case -180:
+                saidaAtual = BAIXO;
+                break;
+            case 180:
+                saidaAtual = BAIXO;
+                break;
+            case -90:
+                saidaAtual = DIREITA;
+                break;
+
+        }
+        onAlfa(gameObject);
         
     }
 
 
-    int verificaSaida(int entrada)
+    public int verificaSaida(int entrada)
     {
         Button btn = GetComponent<Button>();
 
