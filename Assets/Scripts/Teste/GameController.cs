@@ -110,33 +110,11 @@ public class GameController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Aqui o puzzle de fato é iniciado, com uma contagem regresiva de n segundos
-    /// Após isso, todos os canos Alfa do puzzle inicia a liberação de água
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator iniciaPuzzle()
-    {
-        yield return new WaitForSeconds(timeStartPuzzle);
-
-        foreach(GameObject btn in btnsAlfa)
-        {
-            //Inicia água e animação da água
-            //start água - começou o puzzle
-            btn.GetComponent<Spin>().PassaAgua(0);
-
-        }
-
-        yield return new WaitForSeconds(1f);
-
-
-    }
-
     void AddListeners()
     {
         foreach (GameObject btn in btns)
         {
-            btn.GetComponent<Button>().onClick.AddListener(() => PickPipe());
+            btn.GetComponent<Button>().onClick.AddListener(() => PickPipe()); 
         }
     }
 
@@ -157,52 +135,120 @@ public class GameController : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Aqui o puzzle de fato é iniciado, com uma contagem regresiva de n segundos
+    /// Após isso, todos os canos Alfa do puzzle iniciam a liberação de água
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator iniciaPuzzle()
+    {
+        yield return new WaitForSeconds(timeStartPuzzle);
+
+        foreach (GameObject btn in btnsAlfa)
+        {
+            //Inicia água e a animação da água
+            //start água - começou o puzzle
+            btn.GetComponent<Spin>().PassaAgua(-1);
+        }
+
+        yield return new WaitForSeconds(1f);
+
+    }
+
     private void Awake()
     {
-        Spin.onAguaPassando += SpinOnAguaPassando;
-        Spin.onAlfa += SpinOnAguaPassando;
+        Spin.onAguaPassando += SpinOn;
     }
 
-    private void SpinOnAguaPassando(GameObject obj)
-    {
-        string nome = obj.name;
-        Spin spin = obj.GetComponent<Spin>();
 
-        //if (spin.verificaSaida())
-        //{
-
-        //}
-    }
-
-    private void SpinOnAlfa(GameObject obj)
+    private void SpinOn(GameObject obj)
     {
         Spin   spin     = obj   .GetComponent<Spin>();
         Button btn      = spin  .GetComponent<Button>();
         int    index    = Int32 .Parse(btn.name);
+        Spin spinProx;
 
         switch (spin.saidaAtual)
         {
             case Spin.CIMA:
-                int indexCima = Int32.Parse(btns[index - qtdcolunas].name);
-                if (verificaIndex(indexCima)) {
-                    //SpinOnAguaPassando(btns[indexCima]);
-                    Spin spin2 = btns[indexCima].GetComponent<Spin>();
-                    spin2.PassaAgua(spin.saidaAtual);
-                    /*
-                     * verificar
-                     */
-                }
-                 
+                int indexCima = index - qtdcolunas;
+                if (verificaIndex(indexCima))
+                {
+                    spinProx = btns[indexCima].GetComponent<Spin>();
 
-                    /*
-                     * Se não entrar no THEN deve-se dar GAMEOVER
-                     */
+                    if (spinProx.verificaSaida(Spin.BAIXO) == -1)
+                    {
+                        //GAMEOVER
+                        //spin atual precisa jorrar água pelo lado certo
+                    }
+                    else
+                        spinProx.PassaAgua(Spin.BAIXO);
+                }
+                else
+                {
+                    //GAMEOVER
+                    //spin atual precisa jorrar água pelo lado certo
+                }
                 break;
             case Spin.DIREITA:
+                int indexDireita = index + 1;
+                if (verificaIndex(indexDireita))
+                {
+                    spinProx = btns[indexDireita].GetComponent<Spin>();
+
+                    if (spinProx.verificaSaida(Spin.ESQUERDA) == -1)
+                    {
+                        //GAMEOVER
+                        //spin atual precisa jorrar água pelo lado certo
+                    }
+                    else
+                        spinProx.PassaAgua(Spin.ESQUERDA);
+                }
+                else
+                {
+                    //GAMEOVER
+                    //spin atual precisa jorrar água pelo lado certo
+                }
                 break;
             case Spin.BAIXO:
+                int indexBaixo = index + qtdcolunas;
+                if (verificaIndex(indexBaixo))
+                {
+                    spinProx = btns[indexBaixo].GetComponent<Spin>();
+
+                    if (spinProx.verificaSaida(Spin.CIMA) == -1)
+                    {
+                        //GAMEOVER
+                        //spin atual precisa jorrar água pelo lado certo
+                    }
+                    else
+                        spinProx.PassaAgua(Spin.ESQUERDA);
+                }
+                else
+                {
+                    //GAMEOVER
+                    //spin atual precisa jorrar água pelo lado certo
+                }
                 break;
             case Spin.ESQUERDA:
+                int indexEsquerda = index - 1;
+                if (verificaIndex(indexEsquerda))
+                {
+                    spinProx = btns[indexEsquerda].GetComponent<Spin>();
+
+                    if (spinProx.verificaSaida(Spin.DIREITA) == -1)
+                    {
+                        //GAMEOVER
+                        //spin atual precisa jorrar água pelo lado certo
+                    }
+                    else
+                        spinProx.PassaAgua(Spin.DIREITA);
+                }
+                else
+                {
+                    //GAMEOVER
+                    //spin atual precisa jorrar água pelo lado certo
+                }
                 break;
         }
     }
@@ -214,5 +260,13 @@ public class GameController : MonoBehaviour
             return true;
 
         return false;
+    }
+
+
+    private void GameOVer()
+    {
+        /*
+         * Aqui deve-se finalizar o game
+         */
     }
 }

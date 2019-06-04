@@ -16,7 +16,7 @@ public class Spin : MonoBehaviour, IPointerClickHandler
     private bool isRotating;
 
     public static event Action<GameObject> onAguaPassando = delegate { };
-    public static event Action<GameObject> onAlfa = delegate { };
+    public static event Action<GameObject> onGameOver = delegate { };
 
     private bool isRotatingEnable = true;
     public const int CIMA = 0;
@@ -52,39 +52,50 @@ public class Spin : MonoBehaviour, IPointerClickHandler
 
     public void PassaAgua(int entrada)
     {
+
         StartCoroutine(PassandoAgua(entrada));
     }
 
     IEnumerator PassandoAgua(int entrada)
     {
-        yield return new WaitForSeconds(10f);
-
         isRotatingEnable = false;
 
-        //Precisa-se colocar a saída da água quando terminar de passar
+        if (entrada == -1)
+            switch (transform.rotation.z)
+            {
+                case 0:
+                    saidaAtual = CIMA;
+                    break;
+                case 90:
+                    saidaAtual = ESQUERDA;
+                    break;
+                case -180:
+                    saidaAtual = BAIXO;
+                    break;
+                case 180:
+                    saidaAtual = BAIXO;
+                    break;
+                case -90:
+                    saidaAtual = DIREITA;
+                    break;
 
-        //precisa-se colocar o assets da água caindo pelo cano
-        switch (transform.rotation.z)
+            }
+        else
         {
-            case 0:
-                saidaAtual = CIMA;
-                break;
-            case 90:
-                saidaAtual = ESQUERDA;
-                break;
-            case -180:
-                saidaAtual = BAIXO;
-                break;
-            case 180:
-                saidaAtual = BAIXO;
-                break;
-            case -90:
-                saidaAtual = DIREITA;
-                break;
-
+            saidaAtual = verificaSaida(entrada);
+            if(saidaAtual == -1)
+            {
+                onGameOver(gameObject);
+            }
+            else
+            {
+                yield return new WaitForSeconds(10f);
+                onAguaPassando(gameObject);
+            }
+   
         }
-        onAlfa(gameObject);
-        
+        onAguaPassando(gameObject);
+        //TODO precisa-se colocar o assets da água caindo pelo cano
     }
 
 
