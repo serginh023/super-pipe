@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\Utilidade.cs" />
     <None Include="Assets\Resources\Teste\6.txt" />
     <None Include="Assets\Resources\Teste\0.txt" />
+    <None Include="Assets\Resources\Teste\7.txt" />
     <None Include="Assets\Resources\Teste\2.txt" />
     <None Include="Assets\Resources\Teste\4.txt" />
     <None Include="Assets\Resources\Teste\5.txt" />

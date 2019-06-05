@@ -6,23 +6,22 @@ using UnityEngine.UI;
 
 public class Spin : MonoBehaviour, IPointerClickHandler
 {
-    public int saidaAtual = 0;
-    public int entradaAtual = 0;
-    private string nomePipe;
+    public int      saidaAtual              = 0;
+    public int      entradaAtual            = 0;
+    private string  nomePipe;
     private Vector2 pivotPoint;
-    private int angle = 90;
 
     private Vector3 target;
-    private bool isRotating;
+    private bool    isRotating;
 
     public static event Action<GameObject> onAguaPassando = delegate { };
     public static event Action<GameObject> onGameOver = delegate { };
 
-    private bool isRotatingEnable = true;
-    public const int CIMA = 0;
-    public const int DIREITA = 1;
-    public const int BAIXO = 2;
-    public const int ESQUERDA = 3;
+    private bool        isRotatingEnable    = true;
+    public const int    CIMA                = 0;
+    public const int    DIREITA             = 1;
+    public const int    BAIXO               = 2;
+    public const int    ESQUERDA            = 3;
 
 
     public void OnPointerClick(PointerEventData eventData)
@@ -47,7 +46,7 @@ public class Spin : MonoBehaviour, IPointerClickHandler
         }
         transform.rotation = to;
         isRotating = false;
-
+        Debug.Log("rotacao no z: " + transform.eulerAngles.z);
     }
 
     public void PassaAgua(int entrada)
@@ -59,9 +58,11 @@ public class Spin : MonoBehaviour, IPointerClickHandler
     IEnumerator PassandoAgua(int entrada)
     {
         isRotatingEnable = false;
+        int rotacao = (int)transform.eulerAngles.z;
 
         if (entrada == -1)
-            switch (transform.rotation.z)
+        {
+            switch (rotacao)
             {
                 case 0:
                     saidaAtual = CIMA;
@@ -75,15 +76,18 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                 case 180:
                     saidaAtual = BAIXO;
                     break;
+                case 270:
+                    saidaAtual = DIREITA;
+                    break;
                 case -90:
                     saidaAtual = DIREITA;
                     break;
-
             }
+        }
         else
         {
-            saidaAtual = verificaSaida(entrada);
-            if(saidaAtual == -1)
+            saidaAtual = verificaPassagem(entrada);
+            if (saidaAtual == -1)
             {
                 onGameOver(gameObject);
             }
@@ -92,23 +96,31 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                 yield return new WaitForSeconds(10f);
                 onAguaPassando(gameObject);
             }
-   
+
         }
-        onAguaPassando(gameObject);
-        //TODO precisa-se colocar o assets da água caindo pelo cano
-    }
-
-
-    public int verificaSaida(int entrada)
-    {
         Button btn = GetComponent<Button>();
 
         string nome = btn.image.sprite.name;
 
+        Debug.Log("água está saindo do pipe: " + nome + " e de rotação: " + rotacao);
+        Debug.Log("água saindo pela: " + saidaAtual);
+        onAguaPassando(gameObject);
+        //TODO precisa-se colocar o assets da água caindo pelo cano
+        
+    }
+
+
+    public int verificaPassagem(int entrada)
+    {
+        Button btn = GetComponent<Button>();
+
+        string nome = btn.image.sprite.name;
+        Debug.Log("Verificando passagem do pipe: " + name);
+
         switch (nome)
         {
             case "alfa":
-                switch (transform.rotation.z)
+                switch (transform.eulerAngles.z)
                 {
                     case 0:
                         return 0;
@@ -119,6 +131,8 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                     case 180:
                         return 2;
                     case -90:
+                        return 1;
+                    case 270:
                         return 1;
 
                 }
@@ -133,7 +147,7 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                 }
                 break;
             case "curvo":
-                switch (transform.rotation.z)
+                switch (transform.eulerAngles.z)
                 {
                     case 0:
                         if (entrada == 1)
@@ -169,11 +183,17 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                         else if (entrada == BAIXO)
                             return ESQUERDA;
                         else return -1;
+                    case 270:
+                        if (entrada == ESQUERDA)
+                            return BAIXO;
+                        else if (entrada == BAIXO)
+                            return ESQUERDA;
+                        else return -1;
                 }
                 break;
 
             case "reto":
-                switch (transform.rotation.z)
+                switch (transform.eulerAngles.z)
                 {
                     case 0:
                         if (entrada == ESQUERDA)
@@ -205,12 +225,18 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                         else if (entrada == DIREITA)
                             return ESQUERDA;
                         else return -1;
+                    case 270:
+                        if (entrada == ESQUERDA)
+                            return DIREITA;
+                        else if (entrada == DIREITA)
+                            return ESQUERDA;
+                        else return -1;
 
                 }
                 break;
 
             case "omega":
-                switch(transform.rotation.z)
+                switch(transform.eulerAngles.z)
                 {
                     case 0:
                         if (entrada == CIMA)
@@ -232,12 +258,17 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                         if (entrada == BAIXO)
                             return 100;
                         else return -1;
+                    case 270:
+                        if (entrada == BAIXO)
+                            return 100;
+                        else return -1;
                 }
                 break;
         }
 
+        Debug.Log("sprite: " + nome);
 
-        return -10;
+        return -1;
     }
 
 }
