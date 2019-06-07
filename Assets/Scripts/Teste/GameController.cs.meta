@@ -3,7 +3,15 @@ guid: 9116ffe83044783448219bb48450ff42
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - puzzle: {instanceID: 0}
+  - spriteCanoReto: {fileID: 21300000, guid: 36be17d78bc1f2141a611c8ebb76b333, type: 3}
+  - spriteCanoCurvo: {fileID: 21300000, guid: 9b7058dd62deae34987879065d1afb54, type: 3}
+  - spriteCanoCruz: {fileID: 21300000, guid: 267e4c721d1bbc8489d0486f7e77ed1e, type: 3}
+  - spriteCanoAlfa: {fileID: 21300000, guid: a4c430c4cd6aaad4e908c6dc126e293d, type: 3}
+  - spriteCanoOmega: {fileID: 21300000, guid: 0a87aee07d71555488aabbaad6c6b7c5, type: 3}
+  - spriteBG: {fileID: 21300000, guid: 10cb2acf4c949ee4db5d51df0ec504d1, type: 3}
+  - panelGameOver: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -62,7 +62,6 @@ public class GameController : MonoBehaviour
     {
         GameObject[] objects = GameObject.FindGameObjectsWithTag("pipe");
 
-
         for (int i = 0; i < objects.Length; i++)
         {
             btns.Add(objects[i]);
@@ -145,6 +144,7 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(timeStartPuzzle);
         Debug.Log("esperando: " + timeStartPuzzle + " segundos");
 
+        Debug.Log("amanho btnsAlfa: " + btnsAlfa.Count);
         foreach (GameObject btn in btnsAlfa)
             //Inicia água e a animação da água
             //start água - começou o puzzle
@@ -170,18 +170,9 @@ public class GameController : MonoBehaviour
         {
             case Spin.CIMA:
                 int indexCima = index - qtdcolunas;
-                if (verificaIndex(indexCima))
+                if (verificaIndex(index, spin.saidaAtual))
                 {
                     spinProx = btns[indexCima].GetComponent<Spin>();
-
-                    if (spinProx.verificaPassagem(Spin.BAIXO) == -1)
-                    {
-                        //GAMEOVER
-                        Debug.Log("Game Over 1 no pipe: " + index);
-                        GameOver(obj);
-                        //spin atual precisa jorrar água pelo lado certo
-                    }
-                    else
                         spinProx.PassaAgua(Spin.BAIXO);
                 }
                 else
@@ -192,19 +183,9 @@ public class GameController : MonoBehaviour
                 break;
             case Spin.DIREITA:
                 int indexDireita = index + 1;
-                if (verificaIndex(indexDireita))
+                if (verificaIndex(index, spin.saidaAtual))
                 {
                     spinProx = btns[indexDireita].GetComponent<Spin>();
-
-                    if (spinProx.verificaPassagem(Spin.ESQUERDA) == -1)
-                    {
-                        //GAMEOVER
-                        Debug.Log("Game Over 1 no pipe: " + index);
-                        GameOver(obj);
-                        //spin atual precisa jorrar água pelo lado certo
-                        panelGameOver.SetActive(true);
-                    }
-                    else
                         spinProx.PassaAgua(Spin.ESQUERDA);
                 }
                 else
@@ -216,19 +197,10 @@ public class GameController : MonoBehaviour
                 break;
             case Spin.BAIXO:
                 int indexBaixo = index + qtdcolunas;
-                if (verificaIndex(indexBaixo))
+                if (verificaIndex(index, spin.saidaAtual))
                 {
                     spinProx = btns[indexBaixo].GetComponent<Spin>();
-
-                    if (spinProx.verificaPassagem(Spin.CIMA) == -1)
-                    {
-                        //GAMEOVER
-                        Debug.Log("Game Over 1 no pipe: " + index);
-                        GameOver(obj);
-                        //spin atual precisa jorrar água pelo lado certo
-                    }
-                    else
-                        spinProx.PassaAgua(Spin.ESQUERDA);
+                        spinProx.PassaAgua(Spin.CIMA);
                 }
                 else
                 {
@@ -238,18 +210,9 @@ public class GameController : MonoBehaviour
                 break;
             case Spin.ESQUERDA:
                 int indexEsquerda = index - 1;
-                if (verificaIndex(indexEsquerda))
+                if (verificaIndex(index, indexEsquerda))
                 {
                     spinProx = btns[indexEsquerda].GetComponent<Spin>();
-
-                    if (spinProx.verificaPassagem(Spin.DIREITA) == -1)
-                    {
-                        //GAMEOVER
-                        Debug.Log("Game Over 1 no pipe: " + index);
-                        GameOver(obj);
-                        //spin atual precisa jorrar água pelo lado certo
-                    }
-                    else
                         spinProx.PassaAgua(Spin.DIREITA);
                 }
                 else
@@ -260,16 +223,41 @@ public class GameController : MonoBehaviour
                 }
                 break;
         }
-        Debug.Log("Finalizou o spinOn " + btn.name);
     }
 
-    private bool verificaIndex(int index)
+    private bool verificaIndex(int index, int saida)
     {
-        if (index >= 0 && index < btns.Count)
 
+
+        if(index % qtdcolunas == 0)
+        {
+            if (saida == Spin.ESQUERDA)
+                return false;
+            else
+                return true;
+        }else if(index % qtdcolunas == qtdcolunas - 1)
+        {
+            if (saida == Spin.DIREITA)
+            {
+                return false;
+            }
             return true;
+        }
 
-        return false;
+        if (0 <= index && index < qtdcolunas)
+        {
+            if (saida == Spin.CIMA)
+                return false;
+            else return true;
+        }else if (btns.Count - qtdcolunas <= index && index < btns.Count)
+        {
+            if (saida == Spin.BAIXO)
+                return false;
+            else return true;
+        }
+
+        return true;
+
     }
 
 
@@ -278,7 +266,7 @@ public class GameController : MonoBehaviour
         /*
          * Aqui deve-se finalizar o game
          */
-        Debug.Log("Game Over!");
+        Time.timeScale = 0;
         panelGameOver.SetActive(true);
     }
 }
