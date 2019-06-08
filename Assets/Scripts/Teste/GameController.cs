@@ -50,6 +50,11 @@ public class GameController : MonoBehaviour
     [SerializeField]
     GameObject panelGameOver;
 
+    [SerializeField]
+    GameObject panelSuccess;
+
+    private int contadorSuccess=0;
+
     void Start()
     {
         GetButtons();
@@ -110,6 +115,7 @@ public class GameController : MonoBehaviour
             }
             index++;
         }
+        StartCoroutine(verificaSuccess());
     }
 
     void AddListeners()
@@ -154,8 +160,9 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        Spin.onAguaPassando += SpinOn;
-        Spin.onGameOver += GameOver;
+        Spin.onAguaPassando     += SpinOn;
+        Spin.onGameOver         += GameOver;
+        Spin.onOmegaFinished    += contaOmegaSucesso;
     }
 
 
@@ -268,5 +275,21 @@ public class GameController : MonoBehaviour
          */
         Time.timeScale = 0;
         panelGameOver.SetActive(true);
+    }
+
+    IEnumerator verificaSuccess()
+    {
+        yield return new WaitUntil(() => contadorSuccess >= btnsOmega.Count);
+        //Success!!!
+        Time.timeScale = 0;
+        panelSuccess.SetActive(true);
+        Debug.Log("BTNSPMEGA " + btnsOmega.Count);
+        Debug.Log(contadorSuccess);
+        
+    }
+
+    private void contaOmegaSucesso()
+    {
+        contadorSuccess++;
     }
 }

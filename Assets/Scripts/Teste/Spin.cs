@@ -14,8 +14,9 @@ public class Spin : MonoBehaviour, IPointerClickHandler
     private Vector3 target;
     private bool isRotating;
 
-    public static event Action<GameObject> onAguaPassando = delegate { };
-    public static event Action<GameObject> onGameOver = delegate { };
+    public static event Action<GameObject>  onAguaPassando  = delegate { };
+    public static event Action<GameObject>  onGameOver      = delegate { };
+    public static event Action              onOmegaFinished = delegate { };
 
     private bool isRotatingEnable = true;
     public const int CIMA = 0;
@@ -80,7 +81,6 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                     break;
                 case -90:
                     saidaAtual = DIREITA;
-
                     break;
             }
         }
@@ -94,12 +94,12 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                 Debug.Log("Está dando gameover aqui!!! " + name);
             }
             else
-            {
-                yield return new WaitForSeconds(3f);
-                onAguaPassando(gameObject);
-            }
+            
+                yield return new WaitForSeconds(5f);
+            
 
         }
+
         Button btn = GetComponent<Button>();
 
         string nome = btn.image.sprite.name;
@@ -107,7 +107,6 @@ public class Spin : MonoBehaviour, IPointerClickHandler
         Debug.Log("água está saindo do pipe: " + name + " e de rotação: " + rotacao + " pela: " + saidaAtual);
         onAguaPassando(gameObject);
         //TODO precisa-se colocar o assets da água caindo pelo cano
-
     }
 
 
@@ -116,13 +115,13 @@ public class Spin : MonoBehaviour, IPointerClickHandler
         Button btn = GetComponent<Button>();
 
         string nome = btn.image.sprite.name;
-        Debug.Log("Verificando passagem do pipe: " + name + "com sprite: " + nome + " e entrada: " + entrada);
-
+        int myInt = Convert.ToInt32(transform.eulerAngles.z);
+        Debug.Log("Verificando passagem do pipe: " + name + "com sprite: " + nome + " e entrada: " + entrada + " e rotação: " + transform.eulerAngles.z + " myInt: " + myInt);
 
         switch (nome)
         {
             case "alfa":
-                switch (transform.eulerAngles.z)
+                switch (myInt)
                 {
                     case 0:
                         return 0;
@@ -149,7 +148,7 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                 }
                 break;
             case "curvo":
-                switch (transform.eulerAngles.z)
+                switch (myInt)
                 {
                     case 0:
                         if (entrada == DIREITA)
@@ -172,19 +171,6 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                             return CIMA;
                         else return -1;
 
-                    case -180:
-                        if (entrada == CIMA)
-                            return ESQUERDA;
-                        else if (entrada == ESQUERDA)
-                            return CIMA;
-                        else return -1;
-
-                    case -90:
-                        if (entrada == ESQUERDA)
-                            return BAIXO;
-                        else if (entrada == BAIXO)
-                            return ESQUERDA;
-                        else return -1;
                     case 270:
                         if (entrada == ESQUERDA)
                             return BAIXO;
@@ -195,7 +181,7 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                 break;
 
             case "reto":
-                switch (transform.eulerAngles.z)
+                switch (myInt)
                 {
                     case 0:
                         if (entrada == ESQUERDA)
@@ -238,31 +224,35 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                 break;
 
             case "omega":
-                switch (transform.eulerAngles.z)
+                switch (myInt)
                 {
                     case 0:
                         if (entrada == CIMA)
+                        {
+                            onOmegaFinished();
                             return 100;
+                        }
                         else return -1;
                     case 90:
                         if (entrada == ESQUERDA)
+                        {
+                            onOmegaFinished();
                             return 100;
-                        else return -1;
-                    case -90:
-                        if (entrada == DIREITA)
-                            return 100;
+                        }
                         else return -1;
                     case 180:
                         if (entrada == BAIXO)
+                        {
+                            onOmegaFinished();
                             return 100;
-                        else return -1;
-                    case -180:
-                        if (entrada == BAIXO)
-                            return 100;
+                        }
                         else return -1;
                     case 270:
-                        if (entrada == BAIXO)
+                        if (entrada == DIREITA)
+                        {
+                            onOmegaFinished();
                             return 100;
+                        }
                         else return -1;
                 }
                 break;
