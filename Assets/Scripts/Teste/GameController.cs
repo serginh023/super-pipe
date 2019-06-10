@@ -283,7 +283,7 @@ public class GameController : MonoBehaviour
         //Success!!!
         Time.timeScale = 0;
         panelSuccess.SetActive(true);
-        Debug.Log("BTNSPMEGA " + btnsOmega.Count);
+        Debug.Log("QTD.BTNS.OMEGA " + btnsOmega.Count);
         Debug.Log(contadorSuccess);
         
     }
