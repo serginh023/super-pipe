@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Spin : MonoBehaviour, IPointerClickHandler
 {
-    public int saidaAtual = 0;
-    public int entradaAtual = 0;
-    private string nomePipe;
-    private Vector2 pivotPoint;
+    public  List<int>   saidasAtuais = new List<int>();
+    public  int         entradaAtual = 0;
+    private string      nomePipe;
+    private Vector2     pivotPoint;
 
     private Vector3 target;
     private bool isRotating;
 
     public static event Action<GameObject>  onAguaPassando  = delegate { };
-    public static event Action<GameObject>  onGameOver      = delegate { };
+    public static event Action              onGameOver      = delegate { };
     public static event Action              onOmegaFinished = delegate { };
 
     private bool isRotatingEnable = true;
@@ -57,208 +58,287 @@ public class Spin : MonoBehaviour, IPointerClickHandler
 
     IEnumerator PassandoAgua(int entrada)
     {
-        isRotatingEnable = false;
-        int rotacao = (int)transform.eulerAngles.z;
+        isRotatingEnable    = false;
+        int rotacao         = (int)transform.eulerAngles.z;
 
         if (entrada == -1)
         {
             switch (rotacao)
             {
                 case 0:
-                    saidaAtual = CIMA;
+                    saidasAtuais.Add(CIMA);
                     break;
                 case 90:
-                    saidaAtual = ESQUERDA;
+                    saidasAtuais.Add(ESQUERDA);
                     break;
                 case -180:
-                    saidaAtual = BAIXO;
+                    saidasAtuais.Add(BAIXO);
                     break;
                 case 180:
-                    saidaAtual = BAIXO;
+                    saidasAtuais.Add(BAIXO);
                     break;
                 case 270:
-                    saidaAtual = DIREITA;
+                    saidasAtuais.Add(DIREITA);
                     break;
                 case -90:
-                    saidaAtual = DIREITA;
+                    saidasAtuais.Add(DIREITA);
                     break;
             }
         }
         else
         {
-            saidaAtual = verificaPassagem(entrada);
-            Debug.Log("Saída calculada: " + saidaAtual);
-            if (saidaAtual == -1)
+            saidasAtuais = verificaPassagem(entrada);
+
+            //Debug.Log("Saída calculada: " + saidaAtual);
+            if (saidasAtuais.Contains(-1))
             {
-                onGameOver(gameObject);
-                Debug.Log("Está dando gameover aqui!!! " + name);
+                //Falta fazer a animação da água caindo
+                    onGameOver();
+                    Debug.Log("Está dando gameover aqui!!! " + name);
+
             }
             else
-            
-                yield return new WaitForSeconds(5f);
-            
 
+                yield return new WaitForSeconds(5f);
         }
 
         Button btn = GetComponent<Button>();
 
         string nome = btn.image.sprite.name;
 
-        Debug.Log("água está saindo do pipe: " + name + " e de rotação: " + rotacao + " pela: " + saidaAtual);
+        Debug.Log("água está saindo do pipe: " + name + " e de rotação: " + rotacao);
         onAguaPassando(gameObject);
         //TODO precisa-se colocar o assets da água caindo pelo cano
     }
 
 
-    public int verificaPassagem(int entrada)
+    public List<int> verificaPassagem(int entrada)
     {
         Button btn = GetComponent<Button>();
 
         string nome = btn.image.sprite.name;
-        int myInt = Convert.ToInt32(transform.eulerAngles.z);
-        Debug.Log("Verificando passagem do pipe: " + name + "com sprite: " + nome + " e entrada: " + entrada + " e rotação: " + transform.eulerAngles.z + " myInt: " + myInt);
+        int coordZ = Convert.ToInt32(transform.eulerAngles.z);
+        Debug.Log("Verificando passagem do pipe: " + name + " com sprite: " + nome + " e entrada: " + entrada + " e rotação: " + transform.eulerAngles.z + " coordZ: " + coordZ);
+        List<int> saidas = new List<int>();
 
         switch (nome)
         {
             case "alfa":
-                switch (myInt)
-                {
-                    case 0:
-                        return 0;
-                    case 90:
-                        return 3;
-                    case -180:
-                        return 2;
-                    case 180:
-                        return 2;
-                    case -90:
-                        return 1;
-                    case 270:
-                        return 1;
+                if (entrada == -1)
+                    switch (coordZ)
+                    {
+                        case 0:
+                            saidas.Add(0);
+                            break;
+                        case 90:
+                            saidas.Add(3);
+                            break;
+                        case 180:
+                            saidas.Add(2);
+                            break;
+                        case 270:
+                            saidas.Add(1);
+                            break;
 
-                }
+                    }
+                
+                else saidas.Add(-1);
                 break;
             case "cruz":
                 switch (entrada)
                 {
-                    case 0: return 2;
-                    case 1: return 3;
-                    case 2: return 0;
-                    case 3: return 1;
+                    case 0: saidas.Add(2);  break;
+                    case 1: saidas.Add(3);  break;
+                    case 2: saidas.Add(0);  break;
+                    case 3: saidas.Add(1);  break;
                 }
                 break;
             case "curvo":
-                switch (myInt)
+                switch (coordZ)
                 {
                     case 0:
                         if (entrada == DIREITA)
-                            return BAIXO;
+                            saidas.Add(BAIXO);
                         else if (entrada == BAIXO)
-                            return DIREITA;
-                        else return -1;
-
+                            saidas.Add(DIREITA);
+                        else
+                            saidas.Add(-1);
+                        break;
                     case 90:
                         if (entrada == CIMA)
-                            return DIREITA;
+                            saidas.Add(DIREITA);
                         else if (entrada == DIREITA)
-                            return CIMA;
-                        else return -1;
-
+                            saidas.Add(CIMA);
+                        else saidas.Add(-1);
+                        break;
                     case 180:
                         if (entrada == CIMA)
-                            return ESQUERDA;
+                            saidas.Add(ESQUERDA);
                         else if (entrada == ESQUERDA)
-                            return CIMA;
-                        else return -1;
-
+                            saidas.Add(CIMA);
+                        else saidas.Add(-1);
+                        break;
                     case 270:
                         if (entrada == ESQUERDA)
-                            return BAIXO;
+                            saidas.Add(BAIXO);
                         else if (entrada == BAIXO)
-                            return ESQUERDA;
-                        else return -1;
+                            saidas.Add(ESQUERDA);
+                        else saidas.Add(-1);
+                        break;
                 }
                 break;
 
             case "reto":
-                switch (myInt)
+                switch (coordZ)
                 {
                     case 0:
                         if (entrada == ESQUERDA)
-                            return DIREITA;
+                            saidas.Add(DIREITA);
                         else if (entrada == DIREITA)
-                            return ESQUERDA;
-                        else return -1;
+                            saidas.Add(ESQUERDA);
+                        else saidas.Add(-1);
+                        break;
                     case 90:
                         if (entrada == CIMA)
-                            return BAIXO;
+                            saidas.Add(BAIXO);
                         else if (entrada == BAIXO)
-                            return CIMA;
-                        else return -1;
-                    case -90:
-                        if (entrada == CIMA)
-                            return BAIXO;
-                        else if (entrada == BAIXO)
-                            return CIMA;
-                        else return -1;
+                            saidas.Add(CIMA);
+                        else saidas.Add(-1);
+                        break;
                     case 180:
                         if (entrada == ESQUERDA)
-                            return DIREITA;
+                            saidas.Add(DIREITA);
                         else if (entrada == DIREITA)
-                            return ESQUERDA;
-                        else return -1;
-                    case -180:
-                        if (entrada == ESQUERDA)
-                            return DIREITA;
-                        else if (entrada == DIREITA)
-                            return ESQUERDA;
-                        else return -1;
+                            saidas.Add(ESQUERDA);
+                        else saidas.Add(-1);
+                        break;
                     case 270:
                         if (entrada == CIMA)
-                            return BAIXO;
+                            saidas.Add(BAIXO);
                         else if (entrada == BAIXO)
-                            return CIMA;
-                        else return -1;
+                            saidas.Add(CIMA);
+                        else saidas.Add(-1);
+                        break;
 
                 }
+                Debug.Log("adicionada saída pelo " + saidas[0]);
                 break;
 
             case "omega":
-                switch (myInt)
+                switch (coordZ)
                 {
                     case 0:
                         if (entrada == CIMA)
                         {
                             onOmegaFinished();
-                            return 100;
+                            saidas.Add(100);
                         }
-                        else return -1;
+                        else saidas.Add(-1);
+                        break;
                     case 90:
                         if (entrada == ESQUERDA)
                         {
                             onOmegaFinished();
-                            return 100;
+                            saidas.Add(100);
                         }
-                        else return -1;
+                        else saidas.Add(-1);
+                        break;
                     case 180:
                         if (entrada == BAIXO)
                         {
                             onOmegaFinished();
-                            return 100;
+                            saidas.Add(100);
                         }
-                        else return -1;
+                        else saidas.Add(-1);
+                        break;
                     case 270:
                         if (entrada == DIREITA)
                         {
                             onOmegaFinished();
-                            return 100;
+                            saidas.Add(100);
                         }
-                        else return -1;
+                        else saidas.Add(-1);
+                        break;
+                }
+                break;
+            case "triplo":
+                switch (coordZ)
+                {
+                    case 0:
+                        if (entrada == ESQUERDA)
+                        {
+                            saidas.Add(DIREITA);
+                            saidas.Add(BAIXO);
+                        }else if(entrada == BAIXO)
+                        {
+                            saidas.Add(DIREITA);
+                            saidas.Add(ESQUERDA);
+                        }else if(entrada == DIREITA)
+                        {
+                            saidas.Add(ESQUERDA);
+                            saidas.Add(BAIXO);
+                        }
+                        break;
+                    case 90:
+                        if (entrada == BAIXO)
+                        {
+                            saidas.Add(DIREITA);
+                            saidas.Add(CIMA);
+                        }
+                        else if (entrada == DIREITA)
+                        {
+                            saidas.Add(BAIXO);
+                            saidas.Add(CIMA);
+                        }
+                        else if (entrada == CIMA)
+                        {
+                            saidas.Add(DIREITA);
+                            saidas.Add(BAIXO);
+                        }
+                        else saidas.Add(-1);
+                        break;
+                    case 180:
+                        if (entrada == ESQUERDA)
+                        {
+                            saidas.Add(CIMA);
+                            saidas.Add(DIREITA);
+                        }
+                        else if (entrada == CIMA)
+                        {
+                            saidas.Add(ESQUERDA);
+                            saidas.Add(DIREITA);
+                        }
+                        else if (entrada == DIREITA)
+                        {
+                            saidas.Add(ESQUERDA);
+                            saidas.Add(CIMA);
+                        }
+                        else saidas.Add(-1);
+                        break;
+                    case 270:
+                        if (entrada == ESQUERDA)
+                        {
+                            saidas.Add(CIMA);
+                            saidas.Add(BAIXO);
+                        }
+                        else if (entrada == CIMA)
+                        {
+                            saidas.Add(ESQUERDA);
+                            saidas.Add(BAIXO);
+                        }
+                        else if (entrada == BAIXO)
+                        {
+                            saidas.Add(ESQUERDA);
+                            saidas.Add(CIMA);
+                        }
+                        else saidas.Add(-1);
+                        break;
+
                 }
                 break;
         }
 
-        return -1;
+        return saidas;
     }
 
 }

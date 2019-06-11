@@ -55,6 +55,9 @@ public class GameController : MonoBehaviour
 
     private int contadorSuccess=0;
 
+    [SerializeField]
+    private Sprite spriteCanoTriplo;
+
     void Start()
     {
         GetButtons();
@@ -107,6 +110,9 @@ public class GameController : MonoBehaviour
                     break;
                 case "4":
                     btns[index].GetComponent<Button>().image.sprite = spriteCanoCruz;
+                    break;
+                case "5":
+                    btns[index].GetComponent<Button>().image.sprite = spriteCanoTriplo;
                     break;
 
                 default:
@@ -173,62 +179,71 @@ public class GameController : MonoBehaviour
         int    index    = Int32 .Parse(btn.name);
         Spin   spinProx;
 
-        switch (spin.saidaAtual)
-        {
-            case Spin.CIMA:
-                int indexCima = index - qtdcolunas;
-                if (verificaIndex(index, spin.saidaAtual))
-                {
-                    spinProx = btns[indexCima].GetComponent<Spin>();
+        foreach (int saidaAtual in spin.saidasAtuais) {
+            switch (saidaAtual)
+            {
+                case Spin.CIMA:
+                    int indexCima = index - qtdcolunas;
+                    if (verificaIndex(index, saidaAtual))
+                    {
+                        spinProx = btns[indexCima].GetComponent<Spin>();
                         spinProx.PassaAgua(Spin.BAIXO);
-                }
-                else
-                {
-                    //GAMEOVER
-                    //spin atual precisa jorrar água pelo lado certo
-                }
-                break;
-            case Spin.DIREITA:
-                int indexDireita = index + 1;
-                if (verificaIndex(index, spin.saidaAtual))
-                {
-                    spinProx = btns[indexDireita].GetComponent<Spin>();
+                    }
+                    else
+                    {
+                        //GAMEOVER
+                        //spin atual precisa jorrar água pelo lado certo
+                        Debug.Log("gameover1");
+                        GameOver();
+                    }
+                    break;
+                case Spin.DIREITA:
+                    int indexDireita = index + 1;
+                    if (verificaIndex(index, saidaAtual))
+                    {
+                        spinProx = btns[indexDireita].GetComponent<Spin>();
                         spinProx.PassaAgua(Spin.ESQUERDA);
-                }
-                else
-                {
-                    //GAMEOVER
-                    //spin atual precisa jorrar água pelo lado certo
-                    panelGameOver.SetActive(true);
-                }
-                break;
-            case Spin.BAIXO:
-                int indexBaixo = index + qtdcolunas;
-                if (verificaIndex(index, spin.saidaAtual))
-                {
-                    spinProx = btns[indexBaixo].GetComponent<Spin>();
+                    }
+                    else
+                    {
+                        //GAMEOVER
+                        //spin atual precisa jorrar água pelo lado certo
+                        Debug.Log("gameover2");
+                        GameOver();
+                    }
+                    break;
+                case Spin.BAIXO:
+                    int indexBaixo = index + qtdcolunas;
+                    if (verificaIndex(index, saidaAtual))
+                    {
+                        spinProx = btns[indexBaixo].GetComponent<Spin>();
                         spinProx.PassaAgua(Spin.CIMA);
-                }
-                else
-                {
-                    //GAMEOVER
-                    //spin atual precisa jorrar água pelo lado certo
-                }
-                break;
-            case Spin.ESQUERDA:
-                int indexEsquerda = index - 1;
-                if (verificaIndex(index, indexEsquerda))
-                {
-                    spinProx = btns[indexEsquerda].GetComponent<Spin>();
+                    }
+                    else
+                    {
+                        //GAMEOVER
+                        //spin atual precisa jorrar água pelo lado certo
+                        Debug.Log("gameover3");
+                        GameOver();
+                    }
+                    break;
+                case Spin.ESQUERDA:
+                    int indexEsquerda = index - 1;
+                    if (verificaIndex(index, indexEsquerda))
+                    {
+                        spinProx = btns[indexEsquerda].GetComponent<Spin>();
                         spinProx.PassaAgua(Spin.DIREITA);
-                }
-                else
-                {
-                    //GAMEOVER
-                    Debug.Log("Game Over 2 no pipe: " + index);
-                    //spin atual precisa jorrar água pelo lado certo
-                }
-                break;
+                    }
+                    else
+                    {
+                        //GAMEOVER
+                        //spin atual precisa jorrar água pelo lado certo
+                        Debug.Log("gameover4");
+                        GameOver();
+                    }
+                    break;
+            }
+
         }
     }
 
@@ -268,7 +283,7 @@ public class GameController : MonoBehaviour
     }
 
 
-    private void GameOver(GameObject obj)
+    private void GameOver()
     {
         /*
          * Aqui deve-se finalizar o game
