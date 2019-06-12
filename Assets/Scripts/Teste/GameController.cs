@@ -58,12 +58,24 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private Sprite spriteCanoTriplo;
 
+    [SerializeField]
+    private Text textContagemRegressiva;
+
+    [SerializeField]
+    private Text textLevel;
+
     void Start()
     {
         GetButtons();
         //AddListeners(); 
         FillPuzzle();
+        FillTextLevel();
         StartCoroutine(iniciaPuzzle());
+    }
+
+    private void FillTextLevel()
+    {
+        textLevel.text = "LEVEL " + idFaseAtual.ToString();
     }
 
     void GetButtons()
@@ -153,10 +165,17 @@ public class GameController : MonoBehaviour
     /// <returns></returns>
     IEnumerator iniciaPuzzle()
     {
-        yield return new WaitForSeconds(timeStartPuzzle);
-        Debug.Log("esperando: " + timeStartPuzzle + " segundos");
-
-        Debug.Log("amanho btnsAlfa: " + btnsAlfa.Count);
+        float tempo = timeStartPuzzle + 1;
+        while (tempo > 1f)
+        {
+            tempo           = tempo - Time.deltaTime;
+            int tempoInt    = (int)tempo;
+            string s        = tempoInt.ToString();
+            textContagemRegressiva.text = s;
+            yield return    null;
+        }
+        textContagemRegressiva.text = "GO!";
+        
         foreach (GameObject btn in btnsAlfa)
             //Inicia água e a animação da água
             //start água - começou o puzzle
@@ -294,12 +313,12 @@ public class GameController : MonoBehaviour
 
     IEnumerator verificaSuccess()
     {
-        yield return new WaitUntil(() => contadorSuccess >= btnsOmega.Count);
+        yield return new WaitUntil(() => contadorSuccess == btnsOmega.Count);
         //Success!!!
         Time.timeScale = 0;
         panelSuccess.SetActive(true);
-        Debug.Log("QTD.BTNS.OMEGA " + btnsOmega.Count);
-        Debug.Log(contadorSuccess);
+        //Debug.Log("QTD.BTNS.OMEGA " + btnsOmega.Count);
+        //Debug.Log(contadorSuccess);
         
     }
 
