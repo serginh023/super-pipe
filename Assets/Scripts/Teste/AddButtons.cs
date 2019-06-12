@@ -23,7 +23,6 @@ public class AddButtons : MonoBehaviour
             GameObject go = Instantiate(goBG);
             go.transform.SetParent(puzzleFieldBG, false);
         }
-        //TODO passar todo esse script para dentro do GAMECONTROLLER
     }
 
 }
