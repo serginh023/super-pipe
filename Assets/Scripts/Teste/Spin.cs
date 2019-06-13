@@ -221,7 +221,7 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                         break;
 
                 }
-                Debug.Log("adicionada saída pelo " + saidas[0]);
+                //Debug.Log("adicionada saída pelo " + saidas[0]);
                 break;
 
             case "omega":

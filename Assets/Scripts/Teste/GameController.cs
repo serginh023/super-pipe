@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -75,7 +76,7 @@ public class GameController : MonoBehaviour
 
     private void FillTextLevel()
     {
-        textLevel.text = "LEVEL " + idFaseAtual.ToString();
+        textLevel.text = "LEVEL " + (idFaseAtual+1).ToString();
     }
 
     void GetButtons()
@@ -93,6 +94,7 @@ public class GameController : MonoBehaviour
     /// </summary>
     void FillPuzzle()
     {
+        idFaseAtual = PlayerPrefs.GetInt(ButtonsMenuManager.IDFASEATUAL);
         string puzzleText = readPuzzle(idFaseAtual).Replace("\r", "");
         string[] linhas = puzzleText.Split('\n');
         Int32.TryParse(linhas[0], out qtdlinhas);
@@ -153,7 +155,7 @@ public class GameController : MonoBehaviour
 
     string readPuzzle(int id)
     {
-        TextAsset[] puzzleText = Resources.LoadAll<TextAsset>("Teste");
+        TextAsset[] puzzleText = Resources.LoadAll<TextAsset>("Puzzles");
         return puzzleText[id].text;
 
     }
@@ -325,5 +327,10 @@ public class GameController : MonoBehaviour
     private void contaOmegaSucesso()
     {
         contadorSuccess++;
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 }
