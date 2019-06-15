@@ -16,7 +16,7 @@ public class AlfaRegistro : MonoBehaviour
 
     IEnumerator giraRegistro()
     {
-        yield return new WaitForSeconds(5f);
+        //yield return new WaitForSeconds(5f);
 
         StartCoroutine(Rotate(new Vector3(0, 0, 1), -45, 0.5f));
 

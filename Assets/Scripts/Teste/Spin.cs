@@ -19,11 +19,13 @@ public class Spin : MonoBehaviour, IPointerClickHandler
     public static event Action              onGameOver      = delegate { };
     public static event Action              onOmegaFinished = delegate { };
 
-    private bool isRotatingEnable = true;
-    public const int CIMA = 0;
-    public const int DIREITA = 1;
-    public const int BAIXO = 2;
-    public const int ESQUERDA = 3;
+    private bool isRotatingEnable   = true;
+    public const int CIMA           = 0;
+    public const int DIREITA        = 1;
+    public const int BAIXO          = 2;
+    public const int ESQUERDA       = 3;
+
+    float tempoEsperaRegistroAnimacao = 1f;
 
 
     public void OnPointerClick(PointerEventData eventData)
@@ -336,9 +338,54 @@ public class Spin : MonoBehaviour, IPointerClickHandler
 
                 }
                 break;
+            default:
+                saidas.Add(-1);
+                break;
         }
 
         return saidas;
+    }
+
+    public void giraRegistroAlfa()
+    {
+        StartCoroutine( GiraRegistro() );
+    }
+
+    IEnumerator GiraRegistro()
+    {
+        StartCoroutine(Rotate(new Vector3(0, 0, 1), 45, 0.5f));
+
+        yield return new WaitForSeconds(tempoEsperaRegistroAnimacao);
+
+        StartCoroutine(Rotate(new Vector3(0, 0, 1), 45, 0.5f));
+
+        yield return new WaitForSeconds(tempoEsperaRegistroAnimacao);
+
+        StartCoroutine(Rotate(new Vector3(0, 0, 1), 45, 0.5f));
+
+        yield return new WaitForSeconds(tempoEsperaRegistroAnimacao);
+    }
+
+    IEnumerator Rotate(Vector3 axis, float angle, float duration)
+    {
+        yield return null;
+        Image[] imgs = GetComponentsInChildren<Image>();
+        Transform t = imgs[1].transform;
+
+        isRotating = true;
+        Quaternion from = t.rotation;
+        Quaternion to = t.rotation;
+        to *= Quaternion.Euler(axis * angle);
+
+        float elapsed = 0.0f;
+        while (elapsed <= duration)
+        {
+            t.rotation = Quaternion.Slerp(from, to, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        t.rotation = to;
+        isRotating = false;
     }
 
 }

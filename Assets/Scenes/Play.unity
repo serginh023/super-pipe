@@ -413,31 +413,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 250021622}
-  - component: {fileID: 250021621}
   - component: {fileID: 250021623}
   m_Layer: 0
-  m_Name: GameControlller
+  m_Name: GameController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &250021621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 250021620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15202fc0fdb68e64d9fb66e8c207e71c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  puzzleField: {fileID: 1822687855}
-  puzzleFieldBG: {fileID: 832141877}
-  btn: {fileID: 1854202454401964402, guid: 82f3abbc9e7e4a044a4ccbedcdd914cd, type: 3}
-  goBG: {fileID: 7266990609436662840, guid: 50693284f679cb545b0f775e53e1a110, type: 3}
 --- !u!4 &250021622
 Transform:
   m_ObjectHideFlags: 0
@@ -465,7 +448,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btns: []
-  puzzle: {fileID: 4900000, guid: f9dbc370070390d4ba6a2a4c607a30fd, type: 3}
   spriteCanoReto: {fileID: 21300000, guid: 36be17d78bc1f2141a611c8ebb76b333, type: 3}
   spriteCanoCurvo: {fileID: 21300000, guid: 9b7058dd62deae34987879065d1afb54, type: 3}
   spriteCanoCruz: {fileID: 21300000, guid: 267e4c721d1bbc8489d0486f7e77ed1e, type: 3}
@@ -478,6 +460,11 @@ MonoBehaviour:
   spriteCanoTriplo: {fileID: 21300000, guid: 804044237bce46f429d75acb7bd21dbb, type: 3}
   textContagemRegressiva: {fileID: 785833689}
   textLevel: {fileID: 629608960}
+  puzzleField: {fileID: 1822687855}
+  puzzleFieldBG: {fileID: 832141877}
+  btn: {fileID: 1854202454401964402, guid: 82f3abbc9e7e4a044a4ccbedcdd914cd, type: 3}
+  goBG: {fileID: 7266990609436662840, guid: 50693284f679cb545b0f775e53e1a110, type: 3}
+  btnAlfa: {fileID: 1854202454401964402, guid: f21a041215841f143ad68374ebc5514b, type: 3}
 --- !u!1 &400596577
 GameObject:
   m_ObjectHideFlags: 0
@@ -1257,7 +1244,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 809273486}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1022642596}
+        m_MethodName: LoadLevelsMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &809273486
@@ -1477,6 +1475,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977767611}
   m_CullTransparentMesh: 0
+--- !u!1 &1022642594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1022642595}
+  - component: {fileID: 1022642596}
+  m_Layer: 0
+  m_Name: MenusController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1022642595
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022642594}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.23414959, y: 0.14888734, z: -1055.1991}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1022642596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022642594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ae433eaa95523c479eb9e00dd5e283d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1065070012
 GameObject:
   m_ObjectHideFlags: 0
@@ -1716,7 +1757,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1128768921}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1022642596}
+        m_MethodName: LoadMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1128768921
@@ -1837,7 +1889,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1197438273}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1022642596}
+        m_MethodName: LoadLevelsMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1197438273
@@ -2077,7 +2140,7 @@ GameObject:
   - component: {fileID: 1327675556}
   - component: {fileID: 1327675555}
   m_Layer: 5
-  m_Name: TextGameOver
+  m_Name: TextSuccess
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2161,7 +2224,7 @@ GameObject:
   - component: {fileID: 1564517064}
   - component: {fileID: 1564517063}
   m_Layer: 5
-  m_Name: ButtonRestart
+  m_Name: ButtonNext
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2231,7 +2294,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1564517064}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1022642596}
+        m_MethodName: LoadNextLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1564517064
@@ -2453,7 +2527,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1833028646}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1022642596}
+        m_MethodName: LoadRestartLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1833028646
@@ -2954,6 +3039,31 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 70
       objectReference: {fileID: 0}
+    - target: {fileID: 1072837228189238978, guid: f914d4d3e0331d94eb36495ba8ab6459,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072837228189238978, guid: f914d4d3e0331d94eb36495ba8ab6459,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadLevelsMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072837228189238978, guid: f914d4d3e0331d94eb36495ba8ab6459,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072837227099649774, guid: f914d4d3e0331d94eb36495ba8ab6459,
+        type: 3}
+      propertyPath: m_Name
+      value: TextSuccess
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072837226803817610, guid: f914d4d3e0331d94eb36495ba8ab6459,
+        type: 3}
+      propertyPath: m_Name
+      value: ButtonNext
+      objectReference: {fileID: 0}
     - target: {fileID: 1072837226803817609, guid: f914d4d3e0331d94eb36495ba8ab6459,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -2983,6 +3093,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072837226803817608, guid: f914d4d3e0331d94eb36495ba8ab6459,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072837226803817608, guid: f914d4d3e0331d94eb36495ba8ab6459,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadNextLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072837226803817608, guid: f914d4d3e0331d94eb36495ba8ab6459,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f914d4d3e0331d94eb36495ba8ab6459, type: 3}

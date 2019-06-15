@@ -12,10 +12,8 @@ public class GameController : MonoBehaviour
     private List<GameObject> btns = new List<GameObject>();
 
     private List<GameObject> btnsAlfa = new List<GameObject>();
-
     private List<GameObject> btnsOmega = new List<GameObject>();
 
-    [SerializeField]
     TextAsset puzzle;
 
     private int qtdlinhas;
@@ -65,6 +63,20 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private Text textLevel;
 
+    
+    private Sprite spriteRegistroAlfa;
+
+    [SerializeField]
+    private Transform puzzleField;
+    [SerializeField]
+    private Transform puzzleFieldBG;
+    [SerializeField]
+    private GameObject btn;
+    [SerializeField]
+    private GameObject goBG;
+    [SerializeField]
+    private GameObject btnAlfa;
+
     void Start()
     {
         GetButtons();
@@ -91,15 +103,13 @@ public class GameController : MonoBehaviour
 
     /// <summary>
     /// Preenche as células do puzzle com os devidos sprites, utilizando Button
+    /// TODO precisa-se mover esse método para a Classe AddButton, para que seja realizado tudo isso nela e já venha o Puzzle pronto pra esta
     /// </summary>
     void FillPuzzle()
     {
-        idFaseAtual = PlayerPrefs.GetInt(ButtonsMenuManager.IDFASEATUAL);
-        string puzzleText = readPuzzle(idFaseAtual).Replace("\r", "");
-        string[] linhas = puzzleText.Split('\n');
-        Int32.TryParse(linhas[0], out qtdlinhas);
-        Int32.TryParse(linhas[1], out qtdcolunas);
-        timeStartPuzzle = float.Parse(linhas[2]);
+        
+        string puzzleText   = readPuzzle(idFaseAtual).Replace("\r", "");
+        string[] linhas     = puzzleText.Split('\n');
 
         int index = 0;
         for (int i = 3; i < linhas.Length; i++)
@@ -177,16 +187,20 @@ public class GameController : MonoBehaviour
             yield return    null;
         }
         textContagemRegressiva.text = "GO!";
-        
+
         foreach (GameObject btn in btnsAlfa)
-            //Inicia água e a animação da água
-            //start água - começou o puzzle
+        //Inicia água e a animação da água
+        //start água - começou o puzzle
+        {
+            btn.GetComponent<Spin>().giraRegistroAlfa();
             btn.GetComponent<Spin>().PassaAgua(-1);
+        }
         
     }
 
     private void Awake()
     {
+        InstanciaBotoesPuzzle();
         Spin.onAguaPassando     += SpinOn;
         Spin.onGameOver         += GameOver;
         Spin.onOmegaFinished    += contaOmegaSucesso;
@@ -250,7 +264,7 @@ public class GameController : MonoBehaviour
                     break;
                 case Spin.ESQUERDA:
                     int indexEsquerda = index - 1;
-                    if (verificaIndex(index, indexEsquerda))
+                    if (verificaIndex(index, saidaAtual))
                     {
                         spinProx = btns[indexEsquerda].GetComponent<Spin>();
                         spinProx.PassaAgua(Spin.DIREITA);
@@ -270,8 +284,6 @@ public class GameController : MonoBehaviour
 
     private bool verificaIndex(int index, int saida)
     {
-
-
         if(index % qtdcolunas == 0)
         {
             if (saida == Spin.ESQUERDA)
@@ -300,7 +312,6 @@ public class GameController : MonoBehaviour
         }
 
         return true;
-
     }
 
 
@@ -319,9 +330,6 @@ public class GameController : MonoBehaviour
         //Success!!!
         Time.timeScale = 0;
         panelSuccess.SetActive(true);
-        //Debug.Log("QTD.BTNS.OMEGA " + btnsOmega.Count);
-        //Debug.Log(contadorSuccess);
-        
     }
 
     private void contaOmegaSucesso()
@@ -332,5 +340,46 @@ public class GameController : MonoBehaviour
     public void LoadMainMenu()
     {
         SceneManager.LoadScene(0, LoadSceneMode.Single);
+    }
+
+    private void InstanciaBotoesPuzzle()
+    {
+        idFaseAtual         = PlayerPrefs.GetInt(ButtonsMenuManager.IDFASEATUAL);
+        string puzzleText   = readPuzzle(idFaseAtual).Replace("\r", "");
+        string[] linhas     = puzzleText.Split('\n');
+        Int32.TryParse      (linhas[0], out qtdlinhas);
+        Int32.TryParse      (linhas[1], out qtdcolunas);
+        timeStartPuzzle     = float.Parse(linhas[2]);
+        
+
+        for(int i = 3; i < linhas.Length; i++)
+        {
+            GameObject button;
+
+            if (linhas[i].Equals("0"))
+            {
+                button = Instantiate(btnAlfa);
+            }
+            else
+            {
+                button = Instantiate(btn);
+            }
+
+            button.name = "" + (i-3).ToString();
+            button.transform.SetParent(puzzleField, false);
+
+            GameObject go = Instantiate(goBG);
+            go.transform.SetParent(puzzleFieldBG, false);
+        }
+
+        //for (int i = 0; i < 30; i++)
+        //{
+        //    GameObject button = Instantiate(btn);
+        //    button.name = "" + i;
+        //    button.transform.SetParent(puzzleField, false);
+
+        //    GameObject go = Instantiate(goBG);
+        //    go.transform.SetParent(puzzleFieldBG, false);
+        //}
     }
 }

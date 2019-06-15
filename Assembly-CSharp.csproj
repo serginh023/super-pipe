@@ -71,7 +71,9 @@
     <Compile Include="Assets\Scripts\PuzzleManager.cs" />
     <Compile Include="Assets\Scripts\SelectOnInput.cs" />
     <Compile Include="Assets\Scripts\Teste\AddButtons.cs" />
+    <Compile Include="Assets\Scripts\Teste\Audio\MusicPlayer.cs" />
     <Compile Include="Assets\Scripts\Teste\GameController.cs" />
+    <Compile Include="Assets\Scripts\Teste\GameMenu\MenusController.cs" />
     <Compile Include="Assets\Scripts\Teste\MainMenu\ButtonsMenuManager.cs" />
     <Compile Include="Assets\Scripts\Teste\MainMenu\LoadSceneOnClick.cs" />
     <Compile Include="Assets\Scripts\Teste\MainMenu\QuitOnClick.cs" />
