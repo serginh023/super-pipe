@@ -141,6 +141,9 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                         case 270:
                             saidas.Add(1);
                             break;
+                        default:
+                            onGameOver();
+                            break;
 
                     }
                 
@@ -187,6 +190,9 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                             saidas.Add(ESQUERDA);
                         else saidas.Add(-1);
                         break;
+                    default:
+                        onGameOver();
+                        break;
                 }
                 break;
 
@@ -220,6 +226,9 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                         else if (entrada == BAIXO)
                             saidas.Add(CIMA);
                         else saidas.Add(-1);
+                        break;
+                    default:
+                        onGameOver();
                         break;
 
                 }
@@ -260,6 +269,9 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                             saidas.Add(100);
                         }
                         else saidas.Add(-1);
+                        break;
+                    default:
+                        onGameOver();
                         break;
                 }
                 break;
@@ -335,7 +347,9 @@ public class Spin : MonoBehaviour, IPointerClickHandler
                         }
                         else saidas.Add(-1);
                         break;
-
+                    default:
+                        onGameOver();
+                        break;
                 }
                 break;
             default:

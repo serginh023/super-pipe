@@ -77,6 +77,11 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameObject btnAlfa;
 
+    [SerializeField]
+    private Text textPoints;
+
+    private int pontuacao = 0;
+
     void InicializaElementosCena()
     {
         GetButtons();
@@ -99,9 +104,6 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < objects.Length; i++)
         
             btns.Add(objects[i]);
-        
-        Debug.Log("pegando referência dos botões total: " + btns.Count);
-        Debug.Log("id " + gameObject.GetInstanceID());
     }
 
     /// <summary>
@@ -188,7 +190,6 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         InstanciaBotoesPuzzle();
-        Debug.Log("entrou no awake");
         InicializaElementosCena();
         
         Spin.onAguaPassando     += SpinOn;
@@ -215,6 +216,7 @@ public class GameController : MonoBehaviour
                         {
                             spinProx = btns[indexCima].GetComponent<Spin>();
                             spinProx.PassaAgua(Spin.BAIXO);
+                            PontuacaoMaisMais();    
                         }
                         else
                         {
@@ -230,7 +232,7 @@ public class GameController : MonoBehaviour
                         {
                             spinProx = btns[indexDireita].GetComponent<Spin>();
                             spinProx.PassaAgua(Spin.ESQUERDA);
-
+                            PontuacaoMaisMais();
                         }
                         else
                         {
@@ -247,6 +249,7 @@ public class GameController : MonoBehaviour
                             btns[indexBaixo].GetComponent<Spin>();
                             spinProx = btns[indexBaixo].GetComponent<Spin>();
                             spinProx.PassaAgua(Spin.CIMA);
+                            PontuacaoMaisMais();
                         }
                         else
                         {
@@ -262,6 +265,7 @@ public class GameController : MonoBehaviour
                         {
                             spinProx = btns[indexEsquerda].GetComponent<Spin>();
                             spinProx.PassaAgua(Spin.DIREITA);
+                            PontuacaoMaisMais();
                         }
                         else
                         {
@@ -377,10 +381,9 @@ public class GameController : MonoBehaviour
         //}
     }
 
-    private void OnDestroy()
+    public void PontuacaoMaisMais()
     {
-        Debug.Log("DESTRUINDO!!!!!");
+        pontuacao = pontuacao + (int)Math.Round(Time.timeScale * 10);
+        textPoints.text = "POINTS: " + pontuacao.ToString();
     }
-
-    
 }
