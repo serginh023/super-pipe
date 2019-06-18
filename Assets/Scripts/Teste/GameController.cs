@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     [SerializeField]
-    private List<GameObject> btns = new List<GameObject>();
+    private List<GameObject> btns;
 
     private List<GameObject> btnsAlfa = new List<GameObject>();
     private List<GameObject> btnsOmega = new List<GameObject>();
@@ -77,10 +77,9 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameObject btnAlfa;
 
-    void Start()
+    void InicializaElementosCena()
     {
         GetButtons();
-        //AddListeners(); 
         FillPuzzle();
         FillTextLevel();
         StartCoroutine(iniciaPuzzle());
@@ -93,12 +92,16 @@ public class GameController : MonoBehaviour
 
     void GetButtons()
     {
+        btns = new List<GameObject>();
+
         GameObject[] objects = GameObject.FindGameObjectsWithTag("pipe");
 
         for (int i = 0; i < objects.Length; i++)
-        {
+        
             btns.Add(objects[i]);
-        }
+        
+        Debug.Log("pegando referência dos botões total: " + btns.Count);
+        Debug.Log("id " + gameObject.GetInstanceID());
     }
 
     /// <summary>
@@ -148,21 +151,6 @@ public class GameController : MonoBehaviour
         StartCoroutine(verificaSuccess());
     }
 
-    void AddListeners()
-    {
-        foreach (GameObject btn in btns)
-        {
-            btn.GetComponent<Button>().onClick.AddListener(() => PickPipe()); 
-        }
-    }
-
-    public void PickPipe()
-    {
-        GameObject obj  = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
-        //string name = obj.name;
-        Button btn      = obj.GetComponent<Button>();
-    }
-
     string readPuzzle(int id)
     {
         TextAsset[] puzzleText = Resources.LoadAll<TextAsset>("Puzzles");
@@ -174,7 +162,6 @@ public class GameController : MonoBehaviour
     /// Aqui o puzzle de fato é iniciado, com uma contagem regresiva de n segundos
     /// Após isso, todos os canos Alfa do puzzle iniciam a liberação de água
     /// </summary>
-    /// <returns></returns>
     IEnumerator iniciaPuzzle()
     {
         float tempo = timeStartPuzzle + 1;
@@ -201,6 +188,9 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         InstanciaBotoesPuzzle();
+        Debug.Log("entrou no awake");
+        InicializaElementosCena();
+        
         Spin.onAguaPassando     += SpinOn;
         Spin.onGameOver         += GameOver;
         Spin.onOmegaFinished    += contaOmegaSucesso;
@@ -209,77 +199,82 @@ public class GameController : MonoBehaviour
 
     private void SpinOn(GameObject obj)
     {
-        Spin   spin     = obj   .GetComponent<Spin>();
-        Button btn      = spin  .GetComponent<Button>();
-        int    index    = Int32 .Parse(btn.name);
-        Spin   spinProx;
+            Spin spin = obj.GetComponent<Spin>();
+            Button btn = spin.GetComponent<Button>();
+            int index = Int32.Parse(btn.name);
+            Spin spinProx;
 
-        foreach (int saidaAtual in spin.saidasAtuais) {
-            switch (saidaAtual)
+
+            foreach (int saidaAtual in spin.saidasAtuais)
             {
-                case Spin.CIMA:
-                    int indexCima = index - qtdcolunas;
-                    if (verificaIndex(index, saidaAtual))
-                    {
-                        spinProx = btns[indexCima].GetComponent<Spin>();
-                        spinProx.PassaAgua(Spin.BAIXO);
-                    }
-                    else
-                    {
-                        //GAMEOVER
-                        //spin atual precisa jorrar água pelo lado certo
-                        Debug.Log("gameover1");
-                        GameOver();
-                    }
-                    break;
-                case Spin.DIREITA:
-                    int indexDireita = index + 1;
-                    if (verificaIndex(index, saidaAtual))
-                    {
-                        spinProx = btns[indexDireita].GetComponent<Spin>();
-                        spinProx.PassaAgua(Spin.ESQUERDA);
-                    }
-                    else
-                    {
-                        //GAMEOVER
-                        //spin atual precisa jorrar água pelo lado certo
-                        Debug.Log("gameover2");
-                        GameOver();
-                    }
-                    break;
-                case Spin.BAIXO:
-                    int indexBaixo = index + qtdcolunas;
-                    if (verificaIndex(index, saidaAtual))
-                    {
-                        spinProx = btns[indexBaixo].GetComponent<Spin>();
-                        spinProx.PassaAgua(Spin.CIMA);
-                    }
-                    else
-                    {
-                        //GAMEOVER
-                        //spin atual precisa jorrar água pelo lado certo
-                        Debug.Log("gameover3");
-                        GameOver();
-                    }
-                    break;
-                case Spin.ESQUERDA:
-                    int indexEsquerda = index - 1;
-                    if (verificaIndex(index, saidaAtual))
-                    {
-                        spinProx = btns[indexEsquerda].GetComponent<Spin>();
-                        spinProx.PassaAgua(Spin.DIREITA);
-                    }
-                    else
-                    {
-                        //GAMEOVER
-                        //spin atual precisa jorrar água pelo lado certo
-                        Debug.Log("gameover4");
-                        GameOver();
-                    }
-                    break;
-            }
+                switch (saidaAtual)
+                {
+                    case Spin.CIMA:
+                        int indexCima = index - qtdcolunas;
+                        if (verificaIndex(index, saidaAtual))
+                        {
+                            spinProx = btns[indexCima].GetComponent<Spin>();
+                            spinProx.PassaAgua(Spin.BAIXO);
+                        }
+                        else
+                        {
+                            //GAMEOVER
+                            //spin atual precisa jorrar água pelo lado certo
+                            Debug.Log("gameover1");
+                            GameOver();
+                        }
+                        break;
+                    case Spin.DIREITA:
+                        int indexDireita = index + 1;
+                        if (verificaIndex(index, saidaAtual) && btns[indexDireita] != null)
+                        {
+                            spinProx = btns[indexDireita].GetComponent<Spin>();
+                            spinProx.PassaAgua(Spin.ESQUERDA);
 
-        }
+                        }
+                        else
+                        {
+                            //GAMEOVER
+                            //spin atual precisa jorrar água pelo lado certo
+                            Debug.Log("gameover2");
+                            GameOver();
+                        }
+                        break;
+                    case Spin.BAIXO:
+                        int indexBaixo = index + qtdcolunas;
+                        if (verificaIndex(index, saidaAtual) && btns[indexBaixo] != null)
+                        {
+                            btns[indexBaixo].GetComponent<Spin>();
+                            spinProx = btns[indexBaixo].GetComponent<Spin>();
+                            spinProx.PassaAgua(Spin.CIMA);
+                        }
+                        else
+                        {
+                            //GAMEOVER
+                            //spin atual precisa jorrar água pelo lado certo
+                            Debug.Log("gameover3");
+                            GameOver();
+                        }
+                        break;
+                    case Spin.ESQUERDA:
+                        int indexEsquerda = index - 1;
+                        if (verificaIndex(index, saidaAtual) && btns[indexEsquerda] != null)
+                        {
+                            spinProx = btns[indexEsquerda].GetComponent<Spin>();
+                            spinProx.PassaAgua(Spin.DIREITA);
+                        }
+                        else
+                        {
+                            //GAMEOVER
+                            //spin atual precisa jorrar água pelo lado certo
+                            Debug.Log("gameover4");
+                            GameOver();
+                        }
+                        break;
+                }
+
+            }
+        
     }
 
     private bool verificaIndex(int index, int saida)
@@ -320,15 +315,14 @@ public class GameController : MonoBehaviour
         /*
          * Aqui deve-se finalizar o game
          */
-        Time.timeScale = 0;
-        panelGameOver.SetActive(true);
+         if(panelGameOver != null)
+            panelGameOver.SetActive(true);
     }
 
     IEnumerator verificaSuccess()
     {
         yield return new WaitUntil(() => contadorSuccess == btnsOmega.Count);
         //Success!!!
-        Time.timeScale = 0;
         panelSuccess.SetActive(true);
     }
 
@@ -382,4 +376,11 @@ public class GameController : MonoBehaviour
         //    go.transform.SetParent(puzzleFieldBG, false);
         //}
     }
+
+    private void OnDestroy()
+    {
+        Debug.Log("DESTRUINDO!!!!!");
+    }
+
+    
 }

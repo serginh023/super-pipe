@@ -8,17 +8,17 @@ public class MenusController : MonoBehaviour
 
     public void LoadMainMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 
     public void LoadLevelsMenu()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 
     public void LoadRestartLevel()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(2, LoadSceneMode.Single);
     }
 
     public void LoadNextLevel()
@@ -26,6 +26,6 @@ public class MenusController : MonoBehaviour
         int lvlAtual = PlayerPrefs.GetInt(ButtonsMenuManager.IDFASEATUAL);
         lvlAtual++;
         PlayerPrefs.SetInt(ButtonsMenuManager.IDFASEATUAL, lvlAtual);
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(2, LoadSceneMode.Single);
     }
 }
