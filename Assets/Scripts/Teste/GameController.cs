@@ -82,6 +82,8 @@ public class GameController : MonoBehaviour
 
     private int pontuacao = 0;
 
+    public static event Action onLevelSuccess = delegate { };
+
     void InicializaElementosCena()
     {
         GetButtons();
@@ -228,7 +230,7 @@ public class GameController : MonoBehaviour
                         break;
                     case Spin.DIREITA:
                         int indexDireita = index + 1;
-                        if (verificaIndex(index, saidaAtual) && btns[indexDireita] != null)
+                        if (verificaIndex(index, saidaAtual))
                         {
                             spinProx = btns[indexDireita].GetComponent<Spin>();
                             spinProx.PassaAgua(Spin.ESQUERDA);
@@ -244,7 +246,7 @@ public class GameController : MonoBehaviour
                         break;
                     case Spin.BAIXO:
                         int indexBaixo = index + qtdcolunas;
-                        if (verificaIndex(index, saidaAtual) && btns[indexBaixo] != null)
+                        if (verificaIndex(index, saidaAtual))
                         {
                             btns[indexBaixo].GetComponent<Spin>();
                             spinProx = btns[indexBaixo].GetComponent<Spin>();
@@ -261,7 +263,7 @@ public class GameController : MonoBehaviour
                         break;
                     case Spin.ESQUERDA:
                         int indexEsquerda = index - 1;
-                        if (verificaIndex(index, saidaAtual) && btns[indexEsquerda] != null)
+                        if (verificaIndex(index, saidaAtual))
                         {
                             spinProx = btns[indexEsquerda].GetComponent<Spin>();
                             spinProx.PassaAgua(Spin.DIREITA);
@@ -283,50 +285,69 @@ public class GameController : MonoBehaviour
 
     private bool verificaIndex(int index, int saida)
     {
+        bool retorno = false;
         if(index % qtdcolunas == 0)
         {
             if (saida == Spin.ESQUERDA)
-                return false;
+                retorno =  false;
             else
-                return true;
+                retorno =  true;
         }else if(index % qtdcolunas == qtdcolunas - 1)
         {
             if (saida == Spin.DIREITA)
             {
-                return false;
+                retorno = false;
             }
-            return true;
+            retorno = true;
         }
 
         if (0 <= index && index < qtdcolunas)
         {
             if (saida == Spin.CIMA)
-                return false;
-            else return true;
-        }else if (btns.Count - qtdcolunas <= index && index < btns.Count)
-        {
-            if (saida == Spin.BAIXO)
-                return false;
-            else return true;
+                retorno = false;
+            else retorno = true;
         }
+        else return false;
 
-        return true;
+        //}else if (btns.Count - qtdcolunas <= index && index < btns.Count)
+        //{
+        //    if (saida == Spin.BAIXO)
+        //        return false;
+        //    else return true;
+        //}
+
+        return retorno;
     }
 
 
     private void GameOver()
     {
+        //Debug.Log("entrou no gameover");
         /*
          * Aqui deve-se finalizar o game
          */
          if(panelGameOver != null)
             panelGameOver.SetActive(true);
+
+        Spin spin;
+        
+        foreach (GameObject btn in btns)
+        {
+            if (btn != null)
+            {
+                spin = btn.GetComponent<Spin>();
+                spin.isRotatingEnable = false;
+            }
+        }
+
     }
 
     IEnumerator verificaSuccess()
     {
         yield return new WaitUntil(() => contadorSuccess == btnsOmega.Count);
         //Success!!!
+        onLevelSuccess();
+        //TODO GUARDAR OS RESULTADOS AINDA
         panelSuccess.SetActive(true);
     }
 
@@ -369,16 +390,6 @@ public class GameController : MonoBehaviour
             GameObject go = Instantiate(goBG);
             go.transform.SetParent(puzzleFieldBG, false);
         }
-
-        //for (int i = 0; i < 30; i++)
-        //{
-        //    GameObject button = Instantiate(btn);
-        //    button.name = "" + i;
-        //    button.transform.SetParent(puzzleField, false);
-
-        //    GameObject go = Instantiate(goBG);
-        //    go.transform.SetParent(puzzleFieldBG, false);
-        //}
     }
 
     public void PontuacaoMaisMais()

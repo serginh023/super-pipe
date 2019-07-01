@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 43526896}
   - component: {fileID: 43526895}
   - component: {fileID: 43526894}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: ButtonMainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 144458005}
   - component: {fileID: 144458007}
   - component: {fileID: 144458006}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: PanelSuccess
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 144458004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1327675554}
@@ -454,7 +454,7 @@ MonoBehaviour:
   spriteCanoAlfa: {fileID: 21300000, guid: a4c430c4cd6aaad4e908c6dc126e293d, type: 3}
   spriteCanoOmega: {fileID: 21300000, guid: 0a87aee07d71555488aabbaad6c6b7c5, type: 3}
   spriteBG: {fileID: 21300000, guid: f3704074111f9d545ab99c1c14ab9c60, type: 3}
-  idFaseAtual: 5
+  idFaseAtual: 10
   panelGameOver: {fileID: 408778512}
   panelSuccess: {fileID: 144458004}
   spriteCanoTriplo: {fileID: 21300000, guid: 804044237bce46f429d75acb7bd21dbb, type: 3}
@@ -478,7 +478,7 @@ GameObject:
   - component: {fileID: 400596578}
   - component: {fileID: 400596580}
   - component: {fileID: 400596579}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: TextPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -561,7 +561,7 @@ GameObject:
   - component: {fileID: 408778515}
   - component: {fileID: 408778514}
   - component: {fileID: 408778516}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: PanelGameOver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -576,7 +576,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 408778512}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1878497636}
@@ -663,7 +663,7 @@ GameObject:
   - component: {fileID: 484232017}
   - component: {fileID: 484232019}
   - component: {fileID: 484232018}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -745,7 +745,7 @@ GameObject:
   - component: {fileID: 625498253}
   - component: {fileID: 625498255}
   - component: {fileID: 625498254}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: TextPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -905,7 +905,7 @@ GameObject:
   - component: {fileID: 652833514}
   - component: {fileID: 652833513}
   - component: {fileID: 652833512}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: PanelOptions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1011,7 +1011,7 @@ GameObject:
   - component: {fileID: 741484669}
   - component: {fileID: 741484671}
   - component: {fileID: 741484670}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1174,7 +1174,7 @@ GameObject:
   - component: {fileID: 809273487}
   - component: {fileID: 809273486}
   - component: {fileID: 809273485}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: ButtonLevelsMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1310,7 +1310,7 @@ GameObject:
   - component: {fileID: 832141880}
   - component: {fileID: 832141879}
   - component: {fileID: 832141878}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: PuzzleFieldBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1408,7 +1408,7 @@ GameObject:
   - component: {fileID: 977767612}
   - component: {fileID: 977767614}
   - component: {fileID: 977767613}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1530,7 +1530,7 @@ GameObject:
   - component: {fileID: 1065070013}
   - component: {fileID: 1065070015}
   - component: {fileID: 1065070014}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1609,7 +1609,7 @@ GameObject:
   - component: {fileID: 1116046653}
   - component: {fileID: 1116046655}
   - component: {fileID: 1116046654}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1689,7 +1689,7 @@ GameObject:
   - component: {fileID: 1128768922}
   - component: {fileID: 1128768921}
   - component: {fileID: 1128768920}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: ButtonMainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1821,7 +1821,7 @@ GameObject:
   - component: {fileID: 1197438274}
   - component: {fileID: 1197438273}
   - component: {fileID: 1197438272}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: ButtonLevelsMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2220,7 +2220,7 @@ GameObject:
   - component: {fileID: 1327675554}
   - component: {fileID: 1327675556}
   - component: {fileID: 1327675555}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: TextSuccess
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2304,7 +2304,7 @@ GameObject:
   - component: {fileID: 1564517065}
   - component: {fileID: 1564517064}
   - component: {fileID: 1564517063}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: ButtonNext
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2440,7 +2440,7 @@ GameObject:
   - component: {fileID: 1822687857}
   - component: {fileID: 1822687856}
   - component: {fileID: 1822687858}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: PuzzleField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2539,7 +2539,7 @@ GameObject:
   - component: {fileID: 1833028647}
   - component: {fileID: 1833028646}
   - component: {fileID: 1833028645}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: ButtonRestart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2670,7 +2670,7 @@ GameObject:
   - component: {fileID: 1878497636}
   - component: {fileID: 1878497638}
   - component: {fileID: 1878497637}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: TextGameOver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2750,7 +2750,7 @@ GameObject:
   - component: {fileID: 2094732267}
   - component: {fileID: 2094732269}
   - component: {fileID: 2094732268}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2833,7 +2833,7 @@ GameObject:
   - component: {fileID: 2136224688}
   - component: {fileID: 2136224687}
   - component: {fileID: 2136224689}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: PanelOptions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2930,6 +2930,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1211035959}
     m_Modifications:
+    - target: {fileID: 1072837227965080739, guid: f914d4d3e0331d94eb36495ba8ab6459,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1072837227965080738, guid: f914d4d3e0331d94eb36495ba8ab6459,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -2985,6 +2990,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1072837228065460059, guid: f914d4d3e0331d94eb36495ba8ab6459,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1072837228065460058, guid: f914d4d3e0331d94eb36495ba8ab6459,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2998,7 +3008,7 @@ PrefabInstance:
     - target: {fileID: 1072837228065460058, guid: f914d4d3e0331d94eb36495ba8ab6459,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 1072837228065460058, guid: f914d4d3e0331d94eb36495ba8ab6459,
         type: 3}
@@ -3090,6 +3100,31 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1072837227783180334, guid: f914d4d3e0331d94eb36495ba8ab6459,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072837227868357919, guid: f914d4d3e0331d94eb36495ba8ab6459,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072837228572261545, guid: f914d4d3e0331d94eb36495ba8ab6459,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072837228658845235, guid: f914d4d3e0331d94eb36495ba8ab6459,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072837228189238980, guid: f914d4d3e0331d94eb36495ba8ab6459,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1072837228189238979, guid: f914d4d3e0331d94eb36495ba8ab6459,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -3140,10 +3175,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: TextSuccess
       objectReference: {fileID: 0}
+    - target: {fileID: 1072837227099649774, guid: f914d4d3e0331d94eb36495ba8ab6459,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1072837226803817610, guid: f914d4d3e0331d94eb36495ba8ab6459,
         type: 3}
       propertyPath: m_Name
       value: ButtonNext
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072837226803817610, guid: f914d4d3e0331d94eb36495ba8ab6459,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1072837226803817609, guid: f914d4d3e0331d94eb36495ba8ab6459,
         type: 3}
@@ -3189,6 +3234,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072837227331935653, guid: f914d4d3e0331d94eb36495ba8ab6459,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f914d4d3e0331d94eb36495ba8ab6459, type: 3}

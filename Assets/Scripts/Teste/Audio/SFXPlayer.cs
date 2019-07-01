@@ -46,7 +46,7 @@ public class SFXPlayer : MonoBehaviour
         sfxSlider.onValueChanged.AddListener(delegate { SetVolume(); });
     }
 
-    private void PlaySFX(int index)
+    public void PlaySFX(int index)
     {
         AudioSource sfxAudioSource = GetComponent<AudioSource>();
 

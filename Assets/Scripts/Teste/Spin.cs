@@ -19,7 +19,7 @@ public class Spin : MonoBehaviour, IPointerClickHandler
     public static event Action              onGameOver      = delegate { };
     public static event Action              onOmegaFinished = delegate { };
 
-    private bool isRotatingEnable   = true;
+    public bool isRotatingEnable   = true;
     public const int CIMA           = 0;
     public const int DIREITA        = 1;
     public const int BAIXO          = 2;

@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CartoonStylizedWater\Scripts\WaterScroll.cs" />
     <Compile Include="Assets\Scripts\AlfaRegistro.cs" />
     <Compile Include="Assets\Scripts\EventosTeste.cs" />
     <Compile Include="Assets\Scripts\JsonHelper.cs" />
@@ -81,18 +82,31 @@
     <Compile Include="Assets\Scripts\Teste\MainMenu\SelectButtonOnInput.cs" />
     <Compile Include="Assets\Scripts\Teste\PuzzleNovo.cs" />
     <Compile Include="Assets\Scripts\Teste\RotacaoAleatoria.cs" />
+    <Compile Include="Assets\Scripts\Teste\Score\PlayerProgress.cs" />
     <Compile Include="Assets\Scripts\Teste\Spin.cs" />
     <Compile Include="Assets\Scripts\Utilidade.cs" />
     <None Include="Assets\Resources\Puzzles\6.txt" />
     <None Include="Assets\Resources\Puzzles\8.txt" />
+    <None Include="Assets\Resources\Puzzles\17.txt" />
     <None Include="Assets\Resources\Puzzles\7.txt" />
+    <None Include="Assets\Resources\Puzzles\19.txt" />
     <None Include="Assets\Resources\Puzzles\2.txt" />
+    <None Include="Assets\Resources\Puzzles\14.txt" />
+    <None Include="Assets\Resources\Puzzles\12.txt" />
+    <None Include="Assets\Resources\Puzzles\10.txt" />
+    <None Include="Assets\Resources\Puzzles\18.txt" />
+    <None Include="Assets\CartoonStylizedWater\Shader\CartoonWaterShader.shader" />
     <None Include="Assets\Resources\Puzzles\4.txt" />
+    <None Include="Assets\Resources\Puzzles\15.txt" />
+    <None Include="Assets\Resources\Puzzles\20.txt" />
+    <None Include="Assets\Resources\Puzzles\13.txt" />
     <None Include="Assets\Resources\Puzzles\5.txt" />
     <None Include="Assets\Resources\Puzzles\3.txt" />
     <None Include="Assets\Audio\Melodious piano works\ReadMe.txt" />
+    <None Include="Assets\Resources\Puzzles\11.txt" />
     <None Include="Assets\Resources\Puzzles\1.txt" />
     <None Include="Assets\Resources\Puzzles\0.txt" />
+    <None Include="Assets\Resources\Puzzles\16.txt" />
     <None Include="Assets\Resources\puzzle.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/git/games/super-pipe/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

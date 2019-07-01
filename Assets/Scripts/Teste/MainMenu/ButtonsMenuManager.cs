@@ -50,10 +50,11 @@ public class ButtonsMenuManager : MonoBehaviour
         GameObject obj = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
         //string name = obj.name;
         Button btn = obj.GetComponent<Button>();
-        int aux;
-        Int32.TryParse(obj.name, out aux);
-        PlayerPrefs.SetInt(IDFASEATUAL, aux);
+        int idLevel;
+        Int32.TryParse(obj.name, out idLevel);
+        PlayerPrefs.SetInt(IDFASEATUAL, idLevel);
         SceneManager.LoadScene(2, LoadSceneMode.Single);
+        Debug.Log("escolhida a fase: " + idLevel);
     }
 
 }
