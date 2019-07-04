@@ -48,9 +48,7 @@ public class MusicPlayer : MonoBehaviour
     IEnumerator playAudioSequentially()
     {
         AudioSource adSource = GetComponent<AudioSource>();
-        yield return null;
-
-        
+        //yield return null;
 
         int i = 0;
         //1.Loop through each AudioClip

@@ -466,6 +466,8 @@ MonoBehaviour:
   goBG: {fileID: 7266990609436662840, guid: 50693284f679cb545b0f775e53e1a110, type: 3}
   btnAlfa: {fileID: 1854202454401964402, guid: f21a041215841f143ad68374ebc5514b, type: 3}
   textPoints: {fileID: 1231244088}
+  textPointsSuccess: {fileID: 400596579}
+  textPointsFail: {fileID: 625498254}
 --- !u!1 &400596577
 GameObject:
   m_ObjectHideFlags: 0

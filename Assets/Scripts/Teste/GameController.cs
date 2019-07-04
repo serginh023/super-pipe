@@ -79,6 +79,10 @@ public class GameController : MonoBehaviour
 
     [SerializeField]
     private Text textPoints;
+    [SerializeField]
+    private Text textPointsSuccess;
+    [SerializeField]
+    private Text textPointsGameOver;
 
     private int pontuacao = 0;
 
@@ -216,9 +220,12 @@ public class GameController : MonoBehaviour
                         int indexCima = index - qtdcolunas;
                         if (verificaIndex(index, saidaAtual))
                         {
-                            spinProx = btns[indexCima].GetComponent<Spin>();
-                            spinProx.PassaAgua(Spin.BAIXO);
-                            PontuacaoMaisMais();    
+                            if (this != null)
+                            {
+                                spinProx = btns[indexCima].GetComponent<Spin>();
+                                spinProx.PassaAgua(Spin.BAIXO);
+                                PontuacaoMaisMais();
+                            }
                         }
                         else
                         {
@@ -232,15 +239,18 @@ public class GameController : MonoBehaviour
                         int indexDireita = index + 1;
                         if (verificaIndex(index, saidaAtual))
                         {
-                            spinProx = btns[indexDireita].GetComponent<Spin>();
-                            spinProx.PassaAgua(Spin.ESQUERDA);
-                            PontuacaoMaisMais();
+                            if (this != null)
+                            {
+                                spinProx = btns[indexDireita].GetComponent<Spin>();
+                                spinProx.PassaAgua(Spin.ESQUERDA);
+                                PontuacaoMaisMais();
+                            }
                         }
                         else
                         {
-                            //GAMEOVER
-                            //spin atual precisa jorrar água pelo lado certo
-                            Debug.Log("gameover2");
+                        //GAMEOVER
+                        //spin atual precisa jorrar água pelo lado certo
+                            Debug.Log("GameOver pela direita");
                             GameOver();
                         }
                         break;
@@ -248,10 +258,13 @@ public class GameController : MonoBehaviour
                         int indexBaixo = index + qtdcolunas;
                         if (verificaIndex(index, saidaAtual))
                         {
-                            btns[indexBaixo].GetComponent<Spin>();
-                            spinProx = btns[indexBaixo].GetComponent<Spin>();
-                            spinProx.PassaAgua(Spin.CIMA);
-                            PontuacaoMaisMais();
+                            if (this != null)
+                            {
+                                btns[indexBaixo].GetComponent<Spin>();
+                                spinProx = btns[indexBaixo].GetComponent<Spin>();
+                                spinProx.PassaAgua(Spin.CIMA);
+                                PontuacaoMaisMais();
+                            }
                         }
                         else
                         {
@@ -265,9 +278,12 @@ public class GameController : MonoBehaviour
                         int indexEsquerda = index - 1;
                         if (verificaIndex(index, saidaAtual))
                         {
-                            spinProx = btns[indexEsquerda].GetComponent<Spin>();
-                            spinProx.PassaAgua(Spin.DIREITA);
-                            PontuacaoMaisMais();
+                            if (this != null)
+                            {
+                                spinProx = btns[indexEsquerda].GetComponent<Spin>();
+                                spinProx.PassaAgua(Spin.DIREITA);
+                                PontuacaoMaisMais();
+                            }
                         }
                         else
                         {
@@ -285,38 +301,112 @@ public class GameController : MonoBehaviour
 
     private bool verificaIndex(int index, int saida)
     {
-        bool retorno = false;
-        if(index % qtdcolunas == 0)
-        {
-            if (saida == Spin.ESQUERDA)
-                retorno =  false;
+
+        //piores casos de index
+
+        //index == 0
+        if(index == 0)
+        
+            if (saida == ESQUERDA || saida == CIMA)
+            
+                return false;
             else
-                retorno =  true;
-        }else if(index % qtdcolunas == qtdcolunas - 1)
+            
+                return true;
+            
+        
+        //index == btns.count
+        if (index == btns.Count - 1)
+        
+            if (saida == DIREITA || saida == BAIXO)
+            
+                return false;
+            
+            else
+            
+                return true;
+            
+        
+        //index == qtdcolunas
+        if (index == qtdcolunas - 1)
+        
+            if(saida == DIREITA || saida == CIMA)
+            
+                return false;
+            else
+            
+                return true;
+            
+        
+        //index == btns.count - qtdcolunas
+        if (index == btns.Count - qtdcolunas)
+        
+            if (saida == BAIXO || saida ==ESQUERDA)
+            
+                return false;
+            
+            else
+            
+                return true;
+         
+        //piores casos - fim
+        
+
+        //primeira linha
+        if (0 < index && index < qtdcolunas)
         {
-            if (saida == Spin.DIREITA)
+
+            if (saida == CIMA)
             {
-                retorno = false;
+                return false;
+            }else
+            {
+                return true;
             }
-            retorno = true;
+            
         }
-
-        if (0 <= index && index < qtdcolunas)
+        //última linha
+        if (btns.Count > index && index > btns.Count - 1 - qtdcolunas)
         {
-            if (saida == Spin.CIMA)
-                retorno = false;
-            else retorno = true;
+            if (saida == BAIXO)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            
         }
-        else return false;
 
-        //}else if (btns.Count - qtdcolunas <= index && index < btns.Count)
-        //{
-        //    if (saida == Spin.BAIXO)
-        //        return false;
-        //    else return true;
-        //}
+        //lado esquerdo
+        if (index == 0 || index % qtdcolunas == 0)
+        {
+            if (saida == ESQUERDA)
+            {
+                return false;
+            }else
+            {
+                return true;
+            }
+            
+        }
 
-        return retorno;
+        //lado direito
+        if ( (index + 1) % qtdcolunas == 0 )
+        {
+            if(saida == DIREITA)
+            {
+                return false;
+            }else
+            {
+                return true;
+            }
+            
+        }
+
+        return true;
+
     }
 
 
@@ -326,8 +416,11 @@ public class GameController : MonoBehaviour
         /*
          * Aqui deve-se finalizar o game
          */
-         if(panelGameOver != null)
+        if (panelGameOver != null)
+        {
             panelGameOver.SetActive(true);
+            textPointsGameOver.text = pontuacao.ToString();
+        }
 
         Spin spin;
         
@@ -347,6 +440,7 @@ public class GameController : MonoBehaviour
         yield return new WaitUntil(() => contadorSuccess == btnsOmega.Count);
         //Success!!!
         onLevelSuccess();
+        textPointsSuccess.text = pontuacao.ToString();
         //TODO GUARDAR OS RESULTADOS AINDA
         panelSuccess.SetActive(true);
     }
