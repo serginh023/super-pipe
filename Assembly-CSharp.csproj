@@ -62,7 +62,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CartoonStylizedWater\Scripts\WaterScroll.cs" />
     <Compile Include="Assets\Obi\Rendering\ObiBaseFluidRenderer.cs" />
     <Compile Include="Assets\Obi\Rendering\ObiDistanceFieldRenderer.cs" />
     <Compile Include="Assets\Obi\Rendering\ObiFluidRenderer.cs" />
@@ -119,18 +118,19 @@
     <None Include="Assets\Resources\Puzzles\6.txt" />
     <None Include="Assets\Resources\Puzzles\8.txt" />
     <None Include="Assets\Resources\Puzzles\17.txt" />
+    <None Include="Assets\Obi\CHANGELOG_fluid.txt" />
     <None Include="Assets\Resources\Puzzles\7.txt" />
     <None Include="Assets\Resources\Puzzles\19.txt" />
     <None Include="Assets\Resources\Puzzles\2.txt" />
     <None Include="Assets\Obi\Resources\ObiMaterials\SimpleFluid.shader" />
     <None Include="Assets\Obi\Resources\ObiMaterials\FluidColorsBlend.shader" />
     <None Include="Assets\Resources\Puzzles\14.txt" />
+    <None Include="Assets\Obi\Plugins\libOni.bundle\Contents\Resources\CMakeLists.txt" />
     <None Include="Assets\Resources\Puzzles\12.txt" />
     <None Include="Assets\Resources\Puzzles\10.txt" />
     <None Include="Assets\Obi\Resources\ObiMaterials\ParticleShader.shader" />
     <None Include="Assets\Resources\Puzzles\18.txt" />
     <None Include="Assets\Obi\Resources\ObiMaterials\DielectricFluidShader.shader" />
-    <None Include="Assets\CartoonStylizedWater\Shader\CartoonWaterShader.shader" />
     <None Include="Assets\Resources\Puzzles\4.txt" />
     <None Include="Assets\Obi\Resources\ObiMaterials\ObiParticles.cginc" />
     <None Include="Assets\Obi\Resources\ObiMaterials\OpaqueFluidShader.shader" />
